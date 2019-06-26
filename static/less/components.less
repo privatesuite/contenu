@@ -1,0 +1,176 @@
+// Layout
+.contenu__split {
+
+	display: flex;
+
+	&>*:first-child {
+
+		display: inline-block;
+
+		margin-right: 10px;
+
+		width: 50%;
+
+	}
+
+	&>*:last-child {
+
+		display: inline-block;
+
+		width: 50%;
+
+	}
+
+}
+
+.contenu__center_wrapper {
+
+	&>* {
+
+		margin: auto;
+
+	}
+
+}
+
+.contenu__panel {
+
+	border-radius: @radius__small;
+
+	margin-bottom: @padding__panel / 2;
+
+	padding: @padding__panel;
+
+	font-size: @font__small;
+	font-family: @font__sans;
+
+	.shadow__light(@shadow__ultra_light);
+
+	&.contenu__login_panel {
+
+		min-width: 200px;
+		width: 50%;
+
+		height: 400px;
+
+	}
+
+}
+
+// Small
+.contenu__title {
+
+	display: block;
+
+	margin-bottom: 20px;
+
+	font-size: @font__medium;
+	font-weight: @font__bold;
+	font-family: @font__sans;
+
+}
+
+.contenu__header {
+
+	display: block;
+
+	margin-bottom: 12px;
+
+	font-size: @font__small_medium;
+	font-family: @font__sans;
+
+}
+
+.contenu__subheader {
+
+	display: block;
+
+	margin-bottom: 12px;
+
+	font-size: @font__small;
+	font-weight: 900;
+	font-family: @font__sans;
+
+}
+
+a {
+
+	color: @color__blue;
+
+}
+
+code {
+
+	color: @color__blue;
+
+}
+
+input[type="text"], input[type="password"], input[type="url"] {
+
+	// border: 1px solid @color__blue;
+
+	margin-bottom: 2.5px;
+
+	border: none;
+	border-radius: @radius__small;
+	
+	padding: @padding__input;
+
+	color: white;
+	font-weight: @font__bold;
+	font-family: @font__sans;
+
+	background-color: @color__orange;
+
+	&::placeholder {
+
+		color: white;
+
+	}
+
+}
+
+input[type="file"] {
+
+	appearance: none;
+	-webkit-appearance: none;
+
+	&:after {
+
+		border: none;
+		border-radius: @radius__small;
+		
+		padding: @padding__input;
+
+		color: white;
+		font-weight: @font__bold;
+		font-family: @font__sans;
+
+		background-color: @color__orange;
+
+	}
+
+}
+
+.btn, button {
+
+	border: none;
+	border-radius: @radius__small;
+	
+	padding: @padding__input;
+
+	color: white;
+	font-size: 13px;
+	font-weight: @font__bold;
+	font-family: @font__sans;
+	text-decoration: none;
+
+	background-color: @color__orange;
+
+	&::placeholder {
+
+		color: white;
+
+	}
+
+}

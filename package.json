@@ -1,0 +1,22 @@
+{
+  "name": "contenu",
+  "version": "1.0.0",
+  "description": "A powerful CMS made for developers",
+  "main": "src/index.js",
+  "author": "Auguste Rame",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "finalhandler": "^1.1.2",
+    "git-clone": "^0.1.0",
+    "ini": "^1.3.5",
+    "js-sha512": "^0.8.0",
+    "jsonwebtoken": "^8.5.1",
+    "mime": "^2.4.4",
+    "nedb": "^1.8.0",
+    "rimraf": "^2.6.3",
+    "router": "^1.3.3",
+    "xml2js": "^0.4.19"
+  }
+}

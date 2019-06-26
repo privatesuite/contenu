@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<% include head %>
+
+</head>
+<body>
+	
+	<% include menu %>
+
+	<div class="contenu__dashboard">
+
+		<span class="contenu__title">Source Code</span>
+
+		<div class="contenu__split">
+
+			<div class="contenu__panel">
+
+				<span class="contenu__header">Clone From Repository</span>
+
+				<p><strong>Warning! </strong>Cloning from a repository will clear the <code>www</code> folder and replace it with the repository's content.</p>
+
+				<form action="/admin/source/clone" method="POST">
+				
+					<input type="url" name="repo" placeholder="Repository URL">
+					<input type="text" name="branch" placeholder="Repository Branch" value="master">
+
+					<input class="btn" type="submit" value="Clone">
+
+				</form>
+
+			</div>
+
+			<div class="contenu__panel">
+
+				<span class="contenu__header">Code Status</span>
+
+				
+
+			</div>
+
+		</div>
+		
+	</div>
+
+</body>
+</html>

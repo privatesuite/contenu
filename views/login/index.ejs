@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<% include ../admin/head %>
+
+</head>
+<body>
+	
+	<% include ../admin/menu %>
+
+	<div class="contenu__dashboard">
+
+		<!-- <span class="contenu__title">Sign In</span> -->
+
+		<div class="contenu__center_wrapper">
+
+			<div class="contenu__panel contenu__login_panel">
+
+				<span class="contenu__title">Log In</span>
+	
+				<p>Please sign in to access the <strong>Contenu</strong> dashboard.</p>
+	
+				<form action="/admin/login" method="POST" class="contenu__panel">
+				
+					<input type="text" name="username" placeholder="Username"> <br>
+					<input type="password" name="password" placeholder="Password"> <br><br>
+
+					<input class="btn" type="submit" value="Log In">
+
+				</form>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</body>
+</html>

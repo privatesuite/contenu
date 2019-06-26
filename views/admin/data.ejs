@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<% include head %>
+
+</head>
+<body>
+	
+	<% include menu %>
+
+	<div class="contenu__dashboard">
+
+		<span class="contenu__title">Data Management</span>
+
+		<div class="contenu__split">
+
+			<div class="contenu__panel">
+
+				<span class="contenu__header">Import from JSON / WordPress</span>
+
+				<p>Import Contenu JSON exports or WordPress XML files</p>
+
+				<form action="/admin/data/import" method="POST" enctype="multipart/form-data">
+
+					<span>Map <strong>posts</strong> to:</span>
+					<select name="map_to">
+
+						<option value="posts" selected>Posts</option>
+
+					</select> <br>
+
+					<span>Map <strong>pages</strong> to:</span>
+					<select name="map_to">
+
+						<option value="posts" selected>Posts</option>
+
+					</select> <br><br>
+
+					<input type="file" name="file">
+
+					<input type="submit" value="Import" class="btn">
+
+				</form>
+
+			</div>
+
+			<div class="contenu__panel">
+
+				<span class="contenu__header">Export to JSON</span>
+
+				<span>Export to JSON for backup or migration purposes.</span>
+
+			</div>
+
+		</div>
+
+		<div class="contenu__panel">
+
+			<span class="contenu__header">Templates</span>
+
+			<p>Templates can help standardize and structure elements.</p>
+
+			<a href="/admin/data/create_template" class="btn">Create New Template</a>
+
+			<div>
+
+				<!-- <div class="contenu__panel">
+
+					<span class="contenu__header">Post</span>
+				
+					<strong>A template representative of a post's structure</strong>
+
+					<p>Fields:</p>
+
+					<code>title</code> <br>
+					<code>author</code> <br>
+					<code>content</code>
+
+				</div> -->
+
+			</div>
+
+		</div>
+
+		<div class="contenu__panel">
+
+			<span class="contenu__header">Elements</span>
+
+			<p>Elements are API friendly data-fillable components. An element can do a lot: for example, you can create an element that stores a blog post's data for use in a blog webapp, or an element that stores comments for dynamic user interaction.</p>
+
+			<a href="/admin/data/create_element" class="btn">Create New Element</a>
+			
+			<div>
+
+				
+
+			</div>
+
+		</div>
+		
+	</div>
+
+</body>
+</html>
