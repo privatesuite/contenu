@@ -11,7 +11,10 @@ module.exports = (request, name, data) => {
 
 		ejs.renderFile(`views/${name}.ejs`, {
 
-			user: (await db.users()).find(_ => _.id === session.has(request).user_id),
+			current_user: (await db.users()).find(_ => _.id === session.has(request).user_id),
+
+			users: await db.users(),
+
 			...data
 
 		}, (err, out) => {

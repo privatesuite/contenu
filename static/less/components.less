@@ -35,14 +35,19 @@
 
 .contenu__panel {
 
+	display: block;
+
 	border-radius: @radius__small;
 
+	margin-top: @padding__panel;
 	margin-bottom: @padding__panel / 2;
 
 	padding: @padding__panel;
 
+	color: black;
 	font-size: @font__small;
 	font-family: @font__sans;
+	text-decoration: none;
 
 	.shadow__light(@shadow__ultra_light);
 
@@ -62,7 +67,7 @@
 
 	display: block;
 
-	margin-bottom: 20px;
+	margin-bottom: 7px;
 
 	font-size: @font__medium;
 	font-weight: @font__bold;
@@ -105,7 +110,7 @@ code {
 
 }
 
-input[type="text"], input[type="password"], input[type="url"] {
+input[type="text"], input[type="password"], input[type="url"], input[type="email"] {
 
 	// border: 1px solid @color__blue;
 
@@ -127,6 +132,15 @@ input[type="text"], input[type="password"], input[type="url"] {
 		color: white;
 
 	}
+
+	&:hover, &:focus {
+
+		background-color: darken(@color__orange, 5%);
+
+	}
+
+	cursor: text;
+	transition: 0.2s all;
 
 }
 
@@ -150,6 +164,15 @@ input[type="file"] {
 
 	}
 
+	&:hover, &:focus {
+
+		background-color: darken(@color__orange, 5%);
+
+	}
+
+	cursor: pointer;
+	transition: 0.2s all;
+
 }
 
 .btn, button {
@@ -170,6 +193,77 @@ input[type="file"] {
 	&::placeholder {
 
 		color: white;
+
+	}
+
+	&:hover {
+
+		background-color: darken(@color__orange, 5%);
+
+	}
+
+	cursor: pointer;
+	transition: 0.2s all;
+
+}
+
+// select {
+
+// 	appearance: none;
+// 	-webkit-appearance: none;
+
+// 	pointer-events: none;
+
+// 	cursor: pointer;
+
+// }
+
+.select {
+
+	border-radius: @radius__small;
+
+	font-size: 0;
+
+	&>input {
+
+		display: none;
+
+	}
+
+	&>div {
+
+		&:nth-child(2) {
+
+			border-top-left-radius: @radius__small;
+			border-bottom-left-radius: @radius__small;
+
+		}
+
+		&:last-child {
+
+			border-top-right-radius: @radius__small;
+			border-bottom-right-radius: @radius__small;
+
+		}
+
+		display: inline-block;
+
+		padding: @padding__input;
+
+		color: white;
+		font-size: @font__input;
+		font-weight: @font__bold;
+
+		background-color: @color__orange;
+
+		&[selected], &:hover {
+
+			background-color: darken(@color__orange, 5%);
+
+		}
+
+		cursor: pointer;
+		transition: 0.2s all;
 
 	}
 

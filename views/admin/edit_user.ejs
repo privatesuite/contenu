@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<% include head %>
+
+</head>
+<body>
+	
+	<% include menu %>
+
+	<div class="contenu__dashboard">
+
+		<span class="contenu__title">Data Management > Edit User</span>
+
+		<div class="contenu__panel">
+
+			<code>ID: <%= user.id %></code>
+			<span class="contenu__header"><%= user.username %></span>
+
+			<form method="post">
+
+				<input type="hidden" name="id" value="<%= user.id %>">
+				<input type="text" name="username" placeholder="Username" value="<%= user.username %>"> <br>
+				<input type="email" name="email" placeholder="Email" value="<%= user.email %>"> <br>
+				<input type="password" name="password" placeholder="Password"> <br>
+
+				<div class="select">
+
+					<input name="perm_type" value="<%= user.perm_type %>">
+
+					<div value="viewer" <%= user.perm_type === "viewer" ? "selected" : "" %>>Viewer</div>
+					<div value="author" <%= user.perm_type === "author"? "selected" : "" %>>Author</div>
+					<div value="admin" <%= user.perm_type === "admin" ? "selected" : "" %>>Admin</div>
+
+				</div> <br>
+
+				<input type="submit" value="Save Changes" class="btn">
+
+			</form>
+
+		</div>
+		
+	</div>
+
+</body>
+</html>

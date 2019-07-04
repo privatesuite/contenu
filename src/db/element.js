@@ -26,6 +26,8 @@ module.exports = class Element {
 
 		}, {
 
+			type: "element",
+			id: this.id,
 			template: this.template,
 			fields: this.fields
 

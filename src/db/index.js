@@ -1,3 +1,4 @@
+const path = require("path");
 const Datastore = require("nedb");
 
 const User = require("./user");
@@ -5,7 +6,7 @@ const Element = require("./element");
 
 var db = new Datastore({
 	
-	filename: "database",
+	filename: path.join(__dirname, "..", "..", "database"),
 	autoload: true
 
 });
@@ -40,7 +41,7 @@ module.exports = class Database {
 
 				for (const doc of docs) {
 				
-					users.push(new User(this, doc.id, doc.username, doc.email, doc.password, doc.fields));
+					users.push(new User(this, doc.id, doc.username, doc.email, doc.password, doc.perm_type, doc.fields));
 					
 				}
 
@@ -71,6 +72,7 @@ module.exports = class Database {
 				username: user.username,
 				email: user.email,
 				password: user.password,
+				perm_type: user.perm_type,
 				fields: user.fields
 
 			}, (err) => {

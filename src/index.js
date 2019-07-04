@@ -9,7 +9,7 @@ const finalhandler = require("finalhandler");
 
 const User = require("./db/user");
 
-const config = require("./utils/conf")("dev");
+const config = require("./utils/conf")(process.argv[2] || "dev");
 
 var db = new Database();
 
@@ -23,7 +23,7 @@ var db = new Database();
 
 		console.log(`[IMPORTANT] Creating "admin" user with password "${password}"`);
 
-		await db.addUser(new User(db, null, "admin", "a@dm.in", sha512.sha512(password)));
+		await db.addUser(new User(db, null, "admin", "a@dm.in", sha512.sha512(password), "admin"));
 
 		console.log("[IMPORTANT] Created \"admin\" user");
 

@@ -63,7 +63,24 @@ router.use(async (req, res, next) => {
 	
 		res.end(await view(req, "login/index", {}));
 
-	} else next();
+	} else {
+
+		var user = (await db.users()).find(_ => _.id === session.has(req).user_id);
+		
+		if (user && (user.perm_type === "author" || user.perm_type === "admin")) next();
+		else {
+
+			res.writeHead(200, {
+		
+				"Content-Type": "text/html"
+		
+			});
+		
+			res.end(await view(req, "login/index", {}));
+
+		}
+
+	}
 
 });
 

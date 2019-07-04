@@ -24,11 +24,17 @@
 				<form action="/admin/data/import" method="POST" enctype="multipart/form-data">
 
 					<span>Map <strong>posts</strong> to:</span>
-					<select name="map_to">
+					<!-- <select name="map_to">
 
 						<option value="posts" selected>Posts</option>
 
-					</select> <br>
+					</select> <br> -->
+					<div class="select">
+
+						<input name="map_to">
+						<div value="posts" selected>Posts</div>
+
+					</div>
 
 					<span>Map <strong>pages</strong> to:</span>
 					<select name="map_to">
@@ -55,48 +61,89 @@
 
 		</div>
 
-		<div class="contenu__panel">
+		<div class="contenu__split">
+			
+			<div class="contenu__panel">
 
-			<span class="contenu__header">Templates</span>
+				<span class="contenu__header">API</span>
 
-			<p>Templates can help standardize and structure elements.</p>
+				<p>The API is an essential element of the Contenu CMS. It can be accessed at <code>/api</code>. API access for all elements and templates is disabled by default - to allow it, simply create an <code>api_access</code> field in that element or template and set it to <code>true</code>.</p>
 
-			<a href="/admin/data/create_template" class="btn">Create New Template</a>
+			</div>
 
-			<div>
+			<div class="contenu__panel">
 
-				<!-- <div class="contenu__panel">
+				<span class="contenu__header">Users</span>
 
-					<span class="contenu__header">Post</span>
-				
-					<strong>A template representative of a post's structure</strong>
+				<a href="/admin/data/edit_user/new" class="btn">Create New User</a>
 
-					<p>Fields:</p>
+				<div>
 
-					<code>title</code> <br>
-					<code>author</code> <br>
-					<code>content</code>
+					<% for (const _user of users) { %>
 
-				</div> -->
+						<a class="contenu__panel" href="/admin/data/edit_user/<%= _user.id %>">
+
+							<span class="contenu__header"><%= _user.username %></span>
+						
+							<strong>Type</strong> <%= _user.perm_type %> <br>
+							<strong>Email</strong> <%= _user.email %>
+
+						</a>
+
+					<% } %>
+
+				</div>
 
 			</div>
 
 		</div>
 
-		<div class="contenu__panel">
+		<div class="contenu__split">
 
-			<span class="contenu__header">Elements</span>
+			<div class="contenu__panel">
 
-			<p>Elements are API friendly data-fillable components. An element can do a lot: for example, you can create an element that stores a blog post's data for use in a blog webapp, or an element that stores comments for dynamic user interaction.</p>
+				<span class="contenu__header">Templates</span>
 
-			<a href="/admin/data/create_element" class="btn">Create New Element</a>
-			
-			<div>
+				<p>Templates can help standardize and structure elements.</p>
 
-				
+				<a href="/admin/data/create_template" class="btn">Create New Template</a>
+
+				<div>
+
+					<!-- <div class="contenu__panel">
+
+						<span class="contenu__header">Post</span>
+					
+						<strong>A template representative of a post's structure</strong>
+
+						<p>Fields:</p>
+
+						<code>title</code> <br>
+						<code>author</code> <br>
+						<code>content</code>
+
+					</div> -->
+
+				</div>
 
 			</div>
 
+			<div class="contenu__panel">
+
+				<span class="contenu__header">Elements</span>
+
+				<p>Elements are API friendly data-fillable components. An element can do a lot: for example, you can create an element that stores a blog post's data for use in a blog webapp, or an element that stores comments for dynamic user interaction.</p>
+
+				<a href="/admin/data/create_element" class="btn">Create New Element</a>
+				
+				<div>
+
+					
+
+				</div>
+
+			</div>
+			
 		</div>
 		
 	</div>
