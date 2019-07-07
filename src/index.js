@@ -23,7 +23,7 @@ var db = new Database();
 
 		console.log(`[IMPORTANT] Creating "admin" user with password "${password}"`);
 
-		await db.addUser(new User(db, null, "admin", "a@dm.in", sha512.sha512(password), "admin"));
+		await db.addUser(new User(db, null, "admin", "a@dm.in", sha512.sha512(password), "admin", {}));
 
 		console.log("[IMPORTANT] Created \"admin\" user");
 
@@ -36,7 +36,7 @@ var db = new Database();
  */
 var router = new Router();
 
-// router.use("/login", require("./routes/login"));
+router.use("/api", require("./routes/api"));
 router.use("/admin", require("./routes/admin"));
 
 var server = http.createServer((req, res) => {

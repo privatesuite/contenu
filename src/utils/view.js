@@ -14,6 +14,7 @@ module.exports = (request, name, data) => {
 			current_user: (await db.users()).find(_ => _.id === session.has(request).user_id),
 
 			users: await db.users(),
+			elements: await db.elements(),
 
 			...data
 

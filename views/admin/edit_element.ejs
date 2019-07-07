@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<% include head %>
+
+</head>
+<body>
+	
+	<% include menu %>
+
+	<div class="contenu__dashboard">
+
+		<span class="contenu__title">Data Management > Edit Element</span>
+
+		<div class="contenu__panel">
+
+			<code>ID: <%= element.id %></code>
+
+			<form method="post">
+
+				<script>
+				
+					var fields = <%= element.fields %>;
+
+				</script>
+
+				<input type="hidden" name="id" value="<%= element.id %>">
+				<input type="hidden" name="fields" value="{}">
+
+				<br>
+
+				<div class="select">
+
+					<input name="template" value="<%= element.template %>">
+
+				</div> <br>
+
+				<span class="contenu__header">Fields</span>
+
+				<div class="btn">+</div> <br>
+
+				<div style="text-indent: 25px;">
+
+					<input type="text"> <input type="text">
+
+				</div>
+
+				<br>
+
+				<input type="submit" value="Save Changes" class="btn">
+
+			</form>
+
+		</div>
+		
+	</div>
+
+</body>
+</html>

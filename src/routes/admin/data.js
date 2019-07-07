@@ -6,6 +6,7 @@ const Database = require("../../db");
 
 var db = new Database();
 const User = require("../../db/user");
+const Element = require("../../db/element");
 
 const body = require("../../utils/body");
 const view = require("../../utils/view");
@@ -130,6 +131,97 @@ router.post("/edit_user/:id", async (req, res) => {
 			}
 
 			user.sync();
+
+		}
+
+	}
+
+	res.writeHead(302, {
+		
+		"Location": "/admin/data"
+
+	});
+
+	res.end();
+
+});
+
+router.get("/edit_element/:id", async (req, res) => {
+
+	var id = req.params.id;
+	var element = (await db.elements()).find(_ => _.id === id);
+
+	if (id !== "new" && !element) {
+
+		res.writeHead(302, {
+		
+			"Location": "/admin/data"
+
+		});
+
+		res.end();
+		
+		return;
+
+	}
+
+	res.writeHead(200, {
+		
+		"Content-Type": "text/html"
+
+	});
+
+	if (element) element.fields = JSON.stringify(element.fields);
+
+	res.end(await view(req, "admin/edit_element", {
+
+		element: id === "new" ? {
+
+			id: Math.random().toString(36).replace("0.", ""),
+			
+			template: "",
+			fields: JSON.stringify({})
+
+		} : element
+
+	}));
+
+});
+
+router.post("/edit_element/:id", async (req, res) => {
+
+	var id = req.params.id;
+	var element = (await db.elements()).find(_ => _.id === id);
+	var data = await body(req);
+
+	data.fields = JSON.parse(data.fields);
+
+	if (id !== "new" && !element) {
+
+		res.writeHead(302, {
+		
+			"Location": "/admin/data"
+
+		});
+
+		res.end();
+	
+		return;
+
+	}
+
+	if (data.template !== undefined && data.fields) {
+
+		if (id === "new") {
+
+			db.addElement(new Element(db, data.id, data.template, data.fields || {}));
+
+		} else {
+
+			element.template = data.template;
+			element.fields = data.fields || {};
+
+			element.sync();
 
 		}
 

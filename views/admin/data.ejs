@@ -134,11 +134,21 @@
 
 				<p>Elements are API friendly data-fillable components. An element can do a lot: for example, you can create an element that stores a blog post's data for use in a blog webapp, or an element that stores comments for dynamic user interaction.</p>
 
-				<a href="/admin/data/create_element" class="btn">Create New Element</a>
+				<a href="/admin/data/edit_element/new" class="btn">Create New Element</a>
 				
 				<div>
 
-					
+					<% for (const _element of elements) { %>
+
+						<a class="contenu__panel" href="/admin/data/edit_element/<%= _element.id %>">
+
+							<code><%= _element.id %></code> <br><br>
+						
+							<strong>Template</strong> <%= _element.template ? _element.template : "None" %> <br>
+
+						</a>
+
+					<% } %>
 
 				</div>
 
