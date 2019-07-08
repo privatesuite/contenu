@@ -44,4 +44,15 @@ module.exports = class User {
 
 	}
 
+	delete () {
+
+		this.db.db().remove({
+
+			type: "user",
+			id: this.id
+
+		});
+
+	}
+
 }

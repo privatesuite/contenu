@@ -21,28 +21,32 @@
 
 				<script>
 				
-					var fields = <%= element.fields %>;
+					var fields = <%- JSON.stringify(element.fields) %>;
 
 				</script>
 
 				<input type="hidden" name="id" value="<%= element.id %>">
-				<input type="hidden" name="fields" value="{}">
+				<input type="hidden" name="fields">
 
 				<br>
 
 				<div class="select">
 
-					<input name="template" value="<%= element.template %>">
+					<input name="template" value="<%- element.template %>">
 
 				</div> <br>
 
 				<span class="contenu__header">Fields</span>
 
-				<div class="btn">+</div> <br>
+				<div id="add_field" class="btn">+</div> <br>
 
-				<div style="text-indent: 25px;">
+				<div id="fields" style="text-indent: 25px;">
 
-					<input type="text"> <input type="text">
+					<% for (const field of Object.keys(element.fields)) { %>
+					
+						<div><input type="text" value="<%- field %>"> <input type="text" value="<%- element.fields[field] %>"> <span class="btn delete_field" style="text-indent: 0;">Delete</span></div>
+
+					<% } %>
 
 				</div>
 

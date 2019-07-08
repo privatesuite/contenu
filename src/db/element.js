@@ -35,4 +35,15 @@ module.exports = class Element {
 
 	}
 
+	delete () {
+
+		this.db.db().remove({
+
+			type: "element",
+			id: this.id
+
+		});
+
+	}
+
 }

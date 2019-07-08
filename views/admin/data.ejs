@@ -17,13 +17,13 @@
 
 			<div class="contenu__panel">
 
-				<span class="contenu__header">Import from JSON / WordPress</span>
+				<span class="contenu__header">Import from WordPress</span>
 
-				<p>Import Contenu JSON exports or WordPress XML files</p>
+				<p>Import WordPress XML files. Select the import mappings - or where the WordPress posts and pages will be recorded - below and upload the WordPress XML file by pressing on <code>Choose File</code>.</p>
 
 				<form action="/admin/data/import" method="POST" enctype="multipart/form-data">
 
-					<span>Map <strong>posts</strong> to:</span>
+					<p>Map <strong>posts</strong> to:</p>
 					<!-- <select name="map_to">
 
 						<option value="posts" selected>Posts</option>
@@ -31,21 +31,22 @@
 					</select> <br> -->
 					<div class="select">
 
-						<input name="map_to">
+						<input name="map_posts">
 						<div value="posts" selected>Posts</div>
 
 					</div>
 
-					<span>Map <strong>pages</strong> to:</span>
-					<select name="map_to">
+					<p>Map <strong>pages</strong> to:</p>
+					<div class="select">
 
-						<option value="posts" selected>Posts</option>
+						<input name="map_pages">
+						<div value="posts" selected>Posts</div>
 
-					</select> <br><br>
+					</div>
 
-					<input type="file" name="file">
+					<br>
 
-					<input type="submit" value="Import" class="btn">
+					<input type="file" name="file"> <input type="submit" value="Import" class="btn">
 
 				</form>
 
@@ -83,7 +84,7 @@
 
 						<a class="contenu__panel" href="/admin/data/edit_user/<%= _user.id %>">
 
-							<span class="contenu__header"><%= _user.username %></span>
+							<span class="contenu__subheader"><%= _user.username %></span>
 						
 							<strong>Type</strong> <%= _user.perm_type %> <br>
 							<strong>Email</strong> <%= _user.email %>

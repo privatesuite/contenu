@@ -37,6 +37,7 @@
 
 	display: block;
 
+	border: 1px solid rgba(255, 255, 255, 0.25);
 	border-radius: @radius__small;
 
 	margin-top: @padding__panel;
@@ -44,12 +45,18 @@
 
 	padding: @padding__panel;
 
-	color: black;
+	color: @color__text;
 	font-size: @font__small;
 	font-family: @font__sans;
 	text-decoration: none;
 
-	.shadow__light(@shadow__ultra_light);
+	// .shadow__light(@shadow__ultra_light);
+
+	&.lighter {
+
+		border: 1px solid rgba(255, 255, 255, 0.25 / 2);
+
+	}
 
 	&.contenu__login_panel {
 
@@ -69,7 +76,7 @@
 
 	margin-bottom: 7px;
 
-	font-size: @font__medium;
+	font-size: @font__large;
 	font-weight: @font__bold;
 	font-family: @font__sans;
 
@@ -81,7 +88,7 @@
 
 	margin-bottom: 12px;
 
-	font-size: @font__small_medium;
+	font-size: @font__medium;
 	font-family: @font__sans;
 
 }
@@ -92,7 +99,7 @@
 
 	margin-bottom: 12px;
 
-	font-size: @font__small;
+	font-size: @font__small_medium;
 	font-weight: 900;
 	font-family: @font__sans;
 
@@ -146,10 +153,25 @@ input[type="text"], input[type="password"], input[type="url"], input[type="email
 
 input[type="file"] {
 
+	position: relative;
+
 	appearance: none;
 	-webkit-appearance: none;
+	// visibility: hidden;
+	// opacity: 0;
+
+	width: 108px;
+	height: 38px;
+
+	vertical-align: middle;
 
 	&:after {
+
+		content: "Choose File";
+
+		position: absolute;
+
+		left: 0;
 
 		border: none;
 		border-radius: @radius__small;
@@ -162,11 +184,19 @@ input[type="file"] {
 
 		background-color: @color__orange;
 
+		// z-index: 1;
+
+		transition: 0.2s all;
+
 	}
 
 	&:hover, &:focus {
 
-		background-color: darken(@color__orange, 5%);
+		&:after {
+
+			background-color: darken(@color__orange, 5%);
+
+		}
 
 	}
 

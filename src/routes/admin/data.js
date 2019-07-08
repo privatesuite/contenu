@@ -171,7 +171,7 @@ router.get("/edit_element/:id", async (req, res) => {
 
 	});
 
-	if (element) element.fields = JSON.stringify(element.fields);
+	// if (element) element.fields = JSON.stringify(element.fields);
 
 	res.end(await view(req, "admin/edit_element", {
 
@@ -180,7 +180,7 @@ router.get("/edit_element/:id", async (req, res) => {
 			id: Math.random().toString(36).replace("0.", ""),
 			
 			template: "",
-			fields: JSON.stringify({})
+			fields: {}
 
 		} : element
 
