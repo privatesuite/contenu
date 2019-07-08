@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<% include head %>
+
+</head>
+<body>
+	
+	<% include menu %>
+
+	<div class="contenu__dashboard">
+
+		<span class="contenu__title">Data Management > Edit Template</span>
+
+		<div class="contenu__panel">
+
+			<code>ID: <%= template.id %></code>
+			<span class="contenu__header"><%= template.name %></span>
+
+			<form method="post">
+
+				<script>
+				
+					var fields = <%- JSON.stringify(template.fields) %>;
+
+				</script>
+
+				<input type="hidden" name="id" value="<%= template.id %>">
+				<input type="hidden" name="fields">
+
+				<input type="text" name="name" value="<%= template.name %>">
+
+				<br><br>
+
+				<span class="contenu__header">Fields</span>
+
+				<div id="add_field" class="btn">+</div> <br>
+
+				<div id="fields" style="text-indent: 25px;">
+
+					<% for (const field of Object.keys(template.fields)) { %>
+					
+						<div><input type="text" value="<%- field %>"> <input type="text" value="<%- template.fields[field] %>"> <span class="btn delete_field" style="text-indent: 0;">Delete</span></div>
+
+					<% } %>
+
+				</div>
+
+				<br>
+
+				<input type="submit" value="Save Changes" class="btn">
+
+			</form>
+
+			<form action="?delete" method="post"><input type="submit" value="Delete Template" class="btn"></form>
+
+		</div>
+		
+	</div>
+
+</body>
+</html>

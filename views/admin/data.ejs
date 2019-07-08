@@ -86,6 +86,7 @@
 
 							<span class="contenu__subheader"><%= _user.username %></span>
 						
+							<code>ID: <%= _user.id %></code> <br>
 							<strong>Type</strong> <%= _user.perm_type %> <br>
 							<strong>Email</strong> <%= _user.email %>
 
@@ -107,23 +108,20 @@
 
 				<p>Templates can help standardize and structure elements.</p>
 
-				<a href="/admin/data/create_template" class="btn">Create New Template</a>
+				<a href="/admin/data/edit_template/new" class="btn">Create New Template</a>
 
 				<div>
 
-					<!-- <div class="contenu__panel">
+					<% for (const _template of templates) { %>
 
-						<span class="contenu__header">Post</span>
-					
-						<strong>A template representative of a post's structure</strong>
+						<a class="contenu__panel" href="/admin/data/edit_template/<%= _template.id %>">
 
-						<p>Fields:</p>
+							<span class="contenu__subheader"><%= _template.name %></span>
+							<code>ID: <%= _template.id %></code>
+			
+						</a>
 
-						<code>title</code> <br>
-						<code>author</code> <br>
-						<code>content</code>
-
-					</div> -->
+					<% } %>
 
 				</div>
 
@@ -143,7 +141,7 @@
 
 						<a class="contenu__panel" href="/admin/data/edit_element/<%= _element.id %>">
 
-							<code><%= _element.id %></code> <br><br>
+							<code>ID: <%= _element.id %></code> <br><br>
 						
 							<strong>Template</strong> <%= _element.template ? _element.template : "None" %> <br>
 

@@ -3,6 +3,7 @@ const Datastore = require("nedb");
 
 const User = require("./user");
 const Element = require("./element");
+const Template = require("./template");
 
 var db = new Datastore({
 	
@@ -148,6 +149,80 @@ module.exports = class Database {
 				id: element.id,
 				template: element.template,
 				fields: element.fields
+
+			}, (err) => {
+
+				if (err) {
+
+					reject(err);
+					return;
+
+				}
+
+				resolve(this);
+
+			});
+
+		});
+
+	}
+
+	/**
+	 * Get all templates present in the database
+	 * 
+	 * @returns {Promise<Template[]>}
+	 */
+	templates () {
+
+		return new Promise((resolve, reject) => {
+
+			db.find({
+
+				type: "template"
+				
+			}, (err, docs) => {
+
+				if (err) {
+
+					reject(err);
+					return;
+
+				}
+
+				var templates = [];
+
+				for (const doc of docs) {
+				
+					templates.push(new Template(this, doc.id, doc.name, doc.fields));
+					
+				}
+
+				resolve(templates);
+
+			});
+
+		});
+
+	}
+
+	/**
+	 * Add a template to the database
+	 * 
+	 * @param {Template} template 
+	 * 
+	 * @returns {Promise<this>}
+	 */
+	addTemplate (template) {
+
+		return new Promise((resolve, reject) => {
+
+			db.insert({
+
+				type: "template",
+
+				id: template.id,
+				name: template.name,
+				fields: template.fields
 
 			}, (err) => {
 

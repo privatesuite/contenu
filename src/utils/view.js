@@ -15,6 +15,7 @@ module.exports = (request, name, data) => {
 
 			users: await db.users(),
 			elements: await db.elements(),
+			templates: await db.templates(),
 
 			...data
 

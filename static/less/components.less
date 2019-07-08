@@ -1,3 +1,5 @@
+@percentage__darken: 7%;
+
 // Layout
 .contenu__split {
 
@@ -142,7 +144,7 @@ input[type="text"], input[type="password"], input[type="url"], input[type="email
 
 	&:hover, &:focus {
 
-		background-color: darken(@color__orange, 5%);
+		background-color: darken(@color__orange, @percentage__darken);
 
 	}
 
@@ -194,7 +196,7 @@ input[type="file"] {
 
 		&:after {
 
-			background-color: darken(@color__orange, 5%);
+			background-color: darken(@color__orange, @percentage__darken);
 
 		}
 
@@ -232,7 +234,7 @@ input[type="file"] {
 
 	&:hover {
 
-		background-color: darken(@color__orange, 5%);
+		background-color: darken(@color__orange, @percentage__darken);
 
 	}
 
@@ -292,7 +294,7 @@ input[type="file"] {
 
 		&[selected], &:hover {
 
-			background-color: darken(@color__orange, 5%);
+			background-color: darken(@color__orange, @percentage__darken);
 
 		}
 

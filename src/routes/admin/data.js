@@ -1,4 +1,5 @@
 const fs = require("fs");
+const url = require("url");
 const path = require("path");
 const Router = require("router");
 const sha512 = require("js-sha512");
@@ -7,6 +8,7 @@ const Database = require("../../db");
 var db = new Database();
 const User = require("../../db/user");
 const Element = require("../../db/element");
+const Template = require("../../db/template");
 
 const body = require("../../utils/body");
 const view = require("../../utils/view");
@@ -96,6 +98,12 @@ router.post("/edit_user/:id", async (req, res) => {
 	var id = req.params.id;
 	var user = (await db.users()).find(_ => _.id === id);
 	var data = await body(req);
+
+	if (user && url.parse(req.url).query === "delete") {
+
+		user.delete();
+
+	}
 
 	if (id !== "new" && !user) {
 
@@ -194,7 +202,13 @@ router.post("/edit_element/:id", async (req, res) => {
 	var element = (await db.elements()).find(_ => _.id === id);
 	var data = await body(req);
 
-	data.fields = JSON.parse(data.fields);
+	if (element && url.parse(req.url).query === "delete") {
+
+		element.delete();
+
+	}
+
+	if (data.fields) data.fields = JSON.parse(data.fields);
 
 	if (id !== "new" && !element) {
 
@@ -222,6 +236,103 @@ router.post("/edit_element/:id", async (req, res) => {
 			element.fields = data.fields || {};
 
 			element.sync();
+
+		}
+
+	}
+
+	res.writeHead(302, {
+		
+		"Location": "/admin/data"
+
+	});
+
+	res.end();
+
+});
+
+router.get("/edit_template/:id", async (req, res) => {
+
+	var id = req.params.id;
+	var template = (await db.templates()).find(_ => _.id === id);
+
+	if (id !== "new" && !template) {
+
+		res.writeHead(302, {
+		
+			"Location": "/admin/data"
+
+		});
+
+		res.end();
+		
+		return;
+
+	}
+
+	res.writeHead(200, {
+		
+		"Content-Type": "text/html"
+
+	});
+
+	// if (element) element.fields = JSON.stringify(element.fields);
+
+	res.end(await view(req, "admin/edit_template", {
+
+		template: id === "new" ? {
+
+			id: Math.random().toString(36).replace("0.", ""),
+			
+			name: "New Template",
+			fields: {}
+
+		} : template
+
+	}));
+
+});
+
+router.post("/edit_template/:id", async (req, res) => {
+
+	var id = req.params.id;
+	var template = (await db.templates()).find(_ => _.id === id);
+	var data = await body(req);
+
+	if (template && url.parse(req.url).query === "delete") {
+
+		template.delete();
+
+	}
+
+	if (data.fields) data.fields = JSON.parse(data.fields);
+
+	if (id !== "new" && !template) {
+
+		res.writeHead(302, {
+		
+			"Location": "/admin/data"
+
+		});
+
+		res.end();
+	
+		return;
+
+	}
+
+	if (data.name !== undefined && data.fields) {
+
+		if (id === "new") {
+
+			db.addTemplate(new Template(db, data.id, data.name, data.fields || {}));
+
+		} else {
+
+			template.name = data.name;
+			template.fields = data.fields || {};
+
+			template.sync();
 
 		}
 
