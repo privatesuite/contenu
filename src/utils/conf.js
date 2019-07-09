@@ -2,7 +2,7 @@ const fs = require("fs");
 const ini = require("ini");
 const path = require("path");
 
-var current;
+let current;
 
 module.exports = name => {
 	

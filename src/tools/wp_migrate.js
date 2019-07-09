@@ -17,7 +17,7 @@ module.exports = async xml => {
 
 		if (item["wp:postmeta"] && item["content:encoded"] && !!item["content:encoded"][0] && ["post", "page"].indexOf(item["wp:post_type"][0]) !== -1) {
 
-			var type = item["wp:post_type"][0];
+			let type = item["wp:post_type"][0];
 
 			console.log(type);
 

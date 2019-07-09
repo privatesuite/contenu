@@ -6,7 +6,7 @@ module.exports = {
 
 	has (request) {
 
-		var c = cookies.parse(request);
+		const c = cookies.parse(request);
 
 		if (c.token) {
 		
@@ -27,7 +27,7 @@ module.exports = {
 
 	give (user_id, response) {
 
-		var token = jwt.sign({
+		const token = jwt.sign({
 
 			user_id
 

@@ -15,7 +15,7 @@ const view = require("../../utils/view");
 
 const wp_migrate = require("../../tools/wp_migrate");
 
-var router = new Router();
+const router = new Router();
 
 router.get("/", async (req, res) => {
 
@@ -31,7 +31,7 @@ router.get("/", async (req, res) => {
 
 router.post("/import", async (req, res) => {
 
-	var data = await body(req);
+	const data = await body(req);
 
 	if (data.file && data.file.filename) {
 
@@ -55,8 +55,8 @@ router.post("/import", async (req, res) => {
 
 router.get("/edit_user/:id", async (req, res) => {
 
-	var id = req.params.id;
-	var user = (await db.users()).find(_ => _.id === id);
+	const id = req.params.id;
+	const user = (await db.users()).find(_ => _.id === id);
 
 	if (id !== "new" && !user) {
 
@@ -95,9 +95,9 @@ router.get("/edit_user/:id", async (req, res) => {
 
 router.post("/edit_user/:id", async (req, res) => {
 
-	var id = req.params.id;
-	var user = (await db.users()).find(_ => _.id === id);
-	var data = await body(req);
+	const id = req.params.id;
+	const user = (await db.users()).find(_ => _.id === id);
+	const data = await body(req);
 
 	if (user && url.parse(req.url).query === "delete") {
 
@@ -156,8 +156,8 @@ router.post("/edit_user/:id", async (req, res) => {
 
 router.get("/edit_element/:id", async (req, res) => {
 
-	var id = req.params.id;
-	var element = (await db.elements()).find(_ => _.id === id);
+	const id = req.params.id;
+	const element = (await db.elements()).find(_ => _.id === id);
 
 	if (id !== "new" && !element) {
 
@@ -198,9 +198,9 @@ router.get("/edit_element/:id", async (req, res) => {
 
 router.post("/edit_element/:id", async (req, res) => {
 
-	var id = req.params.id;
-	var element = (await db.elements()).find(_ => _.id === id);
-	var data = await body(req);
+	const id = req.params.id;
+	const element = (await db.elements()).find(_ => _.id === id);
+	const data = await body(req);
 
 	if (element && url.parse(req.url).query === "delete") {
 
@@ -253,8 +253,8 @@ router.post("/edit_element/:id", async (req, res) => {
 
 router.get("/edit_template/:id", async (req, res) => {
 
-	var id = req.params.id;
-	var template = (await db.templates()).find(_ => _.id === id);
+	const id = req.params.id;
+	const template = (await db.templates()).find(_ => _.id === id);
 
 	if (id !== "new" && !template) {
 
@@ -295,9 +295,9 @@ router.get("/edit_template/:id", async (req, res) => {
 
 router.post("/edit_template/:id", async (req, res) => {
 
-	var id = req.params.id;
-	var template = (await db.templates()).find(_ => _.id === id);
-	var data = await body(req);
+	const id = req.params.id;
+	const template = (await db.templates()).find(_ => _.id === id);
+	const data = await body(req);
 
 	if (template && url.parse(req.url).query === "delete") {
 

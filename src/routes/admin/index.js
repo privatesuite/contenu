@@ -30,10 +30,10 @@ router.get("/static/*", async (req, res) => {
 
 router.post("/login", async (req, res) => {
 
-	var data = await body(req);
-	var users = await db.users();
+	const data = await body(req);
+	const users = await db.users();
 
-	var u = users.find(_ => _.username === data.username && _.password === sha512.sha512(data.password));
+	const u = users.find(_ => _.username === data.username && _.password === sha512.sha512(data.password));
 
 	if (data.username && data.password && u) {
 
@@ -65,7 +65,7 @@ router.use(async (req, res, next) => {
 
 	} else {
 
-		var user = (await db.users()).find(_ => _.id === session.has(req).user_id);
+		const user = (await db.users()).find(_ => _.id === session.has(req).user_id);
 		
 		if (user && (user.perm_type === "author" || user.perm_type === "admin")) next();
 		else {
@@ -110,7 +110,7 @@ router.get("/source", async (req, res) => {
 
 router.post("/source/clone", async (req, res) => {
 
-	var data = await body(req);
+	const data = await body(req);
 
 	if (typeof data.repo === "string" && typeof data.branch === "string") {
 
