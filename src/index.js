@@ -8,18 +8,16 @@ const Database = require("./db");
 const finalhandler = require("finalhandler");
 
 const User = require("./db/user");
-
 const config = require("./utils/conf")(process.argv[2] || "dev");
-
-var db = new Database();
+const db = new Database();
 
 (async () => {
 
-	var users = await db.users();
+	const users = await db.users();
 
 	if (!users.find(_ => _.username === "admin")) {
-		
-		var password = Math.random().toString(36).replace("0.", "");
+
+		const password = Math.random().toString(36).replace("0.", "");
 
 		console.log(`[IMPORTANT] Creating "admin" user with password "${password}"`);
 
@@ -34,32 +32,32 @@ var db = new Database();
 /**
  * @type {Router}
  */
-var router = new Router();
+const router = new Router();
 
 router.use("/api", require("./routes/api"));
 router.use("/admin", require("./routes/admin"));
 
-var server = http.createServer((req, res) => {
+const server = http.createServer((req, res) => {
 
 	router(req, res, finalhandler(req, res));
-	
+
 });
 
 router.get("*", (req, res, next) => {
 
-	var file = path.join(__dirname, "..", "www", req.url === "/" ? "index.html" : req.url);
+	let file = path.join(__dirname, "..", "www", req.url === "/" ? "index.html" : req.url);
 
 	if (fs.existsSync(file)) {
 
-		var stat = fs.statSync(file);
+		const stat = fs.statSync(file);
 
 		res.writeHead(200, {
 
 			"Content-Type": mime.getType(file),
 			"Content-Length": stat.size
-	
+
 		});
-	
+
 		fs.createReadStream(file).pipe(res);
 
 	} else {

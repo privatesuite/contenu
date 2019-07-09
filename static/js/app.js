@@ -9,7 +9,7 @@ function typeize (value) {
 
 function updateFields () {
 
-	fields = {};
+	let fields = {};
 
 	for (const field of document.getElementById("fields").children) {
 
@@ -30,7 +30,7 @@ function main () {
 		/**
 		 * @type {HTMLElement}
 		 */
-		var target = event.target;
+		const target = event.target;
 
 		if (target.parentElement.classList.contains("select")) {
 
@@ -44,9 +44,9 @@ function main () {
 
 			// <div><input type="text"> <input type="text"> <span class="btn delete_field" style="text-indent: 0;">Delete</span></div>
 
-			var div = document.createElement("div");
+			const div = document.createElement("div");
 
-			var input = document.createElement("input");
+			const input = document.createElement("input");
 
 			input.type = "text";
 
@@ -55,7 +55,7 @@ function main () {
 			div.appendChild(input.cloneNode());
 			div.append(" ");
 
-			var span = document.createElement("span");
+			const span = document.createElement("span");
 
 			span.innerText = "Delete";
 			span.classList.add("btn");
@@ -86,7 +86,7 @@ function main () {
 		/**
 		 * @type {HTMLElement}
 		 */
-		var target = event.target;
+		const target = event.target;
 
 		if (target.parentElement.parentElement && target.parentElement.parentElement.id === "fields") updateFields();
 

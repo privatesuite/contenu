@@ -38,7 +38,7 @@ module.exports = class Database {
 
 				}
 
-				var users = [];
+				let users = [];
 
 				for (const doc of docs) {
 				
@@ -115,7 +115,7 @@ module.exports = class Database {
 
 				}
 
-				var elements = [];
+				let elements = [];
 
 				for (const doc of docs) {
 				
@@ -189,7 +189,7 @@ module.exports = class Database {
 
 				}
 
-				var templates = [];
+				let templates = [];
 
 				for (const doc of docs) {
 				

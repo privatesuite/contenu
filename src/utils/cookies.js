@@ -2,12 +2,12 @@ module.exports = {
 
 	parse (request) {
 		
-		var list = {},
+		let list = {},
 			rc = request.headers.cookie;
 	
 		rc && rc.split(";").forEach(cookie => {
 
-			var parts = cookie.split("=");
+			let parts = cookie.split("=");
 			list[parts.shift().trim()] = decodeURIComponent(parts.join("="));
 
 		});

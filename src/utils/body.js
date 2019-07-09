@@ -2,11 +2,11 @@ const qs = require("querystring");
 
 function parseMultipart (request, data) {
 
-	var out = {};
-	var lines = data.trim().split("\n").map(d => d.trim()).filter(d => !!d);
-	var boundary = request.headers["content-type"].split("boundary=")[1].trim().replace(";", "");
+	let out = {};
+	const lines = data.trim().split("\n").map(d => d.trim()).filter(d => !!d);
+	const boundary = request.headers["content-type"].split("boundary=")[1].trim().replace(";", "");
 
-	var hold = {};
+	let hold = {};
 
 	for (const line of lines) {
 		
@@ -24,8 +24,8 @@ function parseMultipart (request, data) {
 
 			if (line.startsWith("Content-Disposition: form-data;")) {
 
-				var disposition = {};
-				var _disposition = line.replace("Content-Disposition: form-data;", "").trim();
+				let disposition = {};
+				const _disposition = line.replace("Content-Disposition: form-data;", "").trim();
 
 				_disposition = _disposition.split("; ");
 
@@ -54,9 +54,9 @@ function parseMultipart (request, data) {
 
 module.exports = async r => {
 
-	var b = await (new Promise(_ => {
+	const b = await (new Promise(_ => {
 
-		var _b = "";
+		let _b = "";
 		
 		r.on("data", __ => _b += __);
 		r.on("end", __ => _(_b));
