@@ -25,9 +25,10 @@ router.get("/", (req, res) => {
 		api_version: 1,
 		routes: {
 
-			"/api/file/{file_name}": "GETs all existing users",
+			"/api/file/{path}": "GETs a file",
 			"/api/users": "GETs all existing users",
-			"/api/elements": "GETs all `api_access` elements"
+			"/api/elements": "GETs all `api_access` elements",
+			"/api/templates": "GETs all templates"
 
 		}
 
@@ -37,7 +38,21 @@ router.get("/", (req, res) => {
 
 router.get("/file/:file", async (req, res) => {
 
-	
+	if (fs.existsSync(path.join(__dirname, "..", "..", "..", "files", req.params.file))) {
+
+		res.writeHead(200, {
+			
+			"Content-Type": "application/octet-stream"
+
+		});
+
+		fs.createReadStream(path.join(__dirname, "..", "..", "..", "files", req.params.file)).pipe(res);
+
+	} else {
+
+		res.end("Invalid File");
+
+	}
 
 });
 
@@ -64,7 +79,21 @@ router.get("/elements", async (req, res) => {
 	});
 
 	res.end(JSON.stringify(
-		(await db.elements()).filter(_ => _.fields.api_access)
+		(await db.elements()).filter(_ => _.fields.api_access).map(_ => {_.db = undefined; return _;})
+	));
+
+});
+
+router.get("/templates", async (req, res) => {
+
+	res.writeHead(200, {
+		
+		"Content-Type": "application/json"
+
+	});
+
+	res.end(JSON.stringify(
+		(await db.templates()).map(_ => {_.db = undefined; return _;})
 	));
 
 });

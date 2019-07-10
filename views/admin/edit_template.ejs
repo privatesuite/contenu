@@ -35,13 +35,13 @@
 
 				<span class="contenu__header">Fields</span>
 
-				<div id="add_field" class="btn">+</div> <br>
+				<div id="add_field" class="btn">+</div> <br><br>
 
 				<div id="fields" style="text-indent: 25px;">
 
 					<% for (const field of Object.keys(template.fields)) { %>
 					
-						<div><input type="text" value="<%- field %>"> <input type="text" value="<%- template.fields[field] %>"> <span class="btn delete_field" style="text-indent: 0;">Delete</span></div>
+						<div><input type="text" value="<%- field %>"> <textarea><%- template.fields[field] %></textarea> <span class="btn delete_field" style="text-indent: 0;">Delete</span></div>
 
 					<% } %>
 

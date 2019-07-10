@@ -22,6 +22,7 @@
 				<script>
 				
 					var fields = <%- JSON.stringify(element.fields) %>;
+					var templates = <%- JSON.stringify(templates) %>;
 
 				</script>
 
@@ -30,21 +31,37 @@
 
 				<br>
 
+				<span class="contenu__header">Template</span>
+
 				<div class="select">
 
 					<input name="template" value="<%- element.template %>">
+
+					<div value="" <%= element.template === "" ? "selected" : "" %>>None</div>
+
+					<% for (const _template of templates) { %>
+					
+						<div value="<%= _template.id %>" <%= element.template === _template.id ? "selected" : "" %>><%= _template.name %></div>
+
+					<% } %>
+
+				</div> <br>
+
+				<div id="template_fields" style="text-indent: 25px;">
+
+
 
 				</div> <br>
 
 				<span class="contenu__header">Fields</span>
 
-				<div id="add_field" class="btn">+</div> <br>
+				<div id="add_field" class="btn">+</div> <br><br>
 
 				<div id="fields" style="text-indent: 25px;">
 
 					<% for (const field of Object.keys(element.fields)) { %>
 					
-						<div><input type="text" value="<%- field %>"> <input type="text" value="<%- element.fields[field] %>"> <span class="btn delete_field" style="text-indent: 0;">Delete</span></div>
+						<div><input type="text" value="<%- field %>"> <!-- <input type="text" value="<%- element.fields[field] %>"> --> <textarea><%- element.fields[field] %></textarea> <span class="btn delete_field" style="text-indent: 0;">Delete</span></div>
 
 					<% } %>
 

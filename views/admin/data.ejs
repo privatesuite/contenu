@@ -70,6 +70,60 @@
 
 				<p>The API is an essential element of the Contenu CMS. It can be accessed at <code>/api</code>. API access for all elements and templates is disabled by default - to allow it, simply create an <code>api_access</code> field in that element or template and set it to <code>true</code>.</p>
 
+				<span class="contenu__subheader">Routes</span>
+
+				<!-- <ul>
+
+					<li><code>/api/file/{path}</code> GETs a file
+					<li><code>/api/users</code> GETs all existing users</li>
+					<li><code>/api/elements</code> GETs all <code>api_access</code>ible elements</li>
+					<li><code>/api/templates</code> GETs all templates</li>
+
+				</ul> -->
+
+				<table>
+
+					<tbody>
+
+						<tr>
+
+							<th>Path</th>
+							<th>Usage</th>
+
+						</tr>
+
+						<tr>
+
+							<td><code>/api/file/{path}</code></td>
+							<td>GETs a file</td>
+
+						</tr>
+
+						<tr>
+
+							<td><code>/api/users</code></td>
+							<td>GETs all existing users</td>
+
+						</tr>
+
+						<tr>
+
+							<td><code>/api/elements</code></td>
+							<td>GETs all <code>api_access</code>ible elements</td>
+							
+						</tr>
+
+						<tr>
+
+							<td><code>/api/templates</code></td>
+							<td>GETs all templates</td>
+							
+						</tr>
+
+					</tbody>
+
+				</table>
+
 			</div>
 
 			<div class="contenu__panel">
@@ -141,9 +195,8 @@
 
 						<a class="contenu__panel" href="/admin/data/edit_element/<%= _element.id %>">
 
-							<code>ID: <%= _element.id %></code> <br><br>
-						
-							<strong>Template</strong> <%= _element.template ? _element.template : "None" %> <br>
+							<code>ID: <%= _element.id %></code> <br>
+							<strong>Template</strong> <%= _element.template ? templates.find(_ => _.id === _element.template).name : "None" %> <br>
 
 						</a>
 
@@ -153,6 +206,56 @@
 
 			</div>
 			
+		</div>
+
+		<div class="contenu__panel">
+
+			<span class="contenu__header">Files</span>
+
+			<form action="/admin/data/upload_file" method="POST" enctype="multipart/form-data">
+
+				<input type="file" name="file"> <input type="submit" value="Upload" class="btn">
+
+			</form>
+
+			<div id="files">
+
+				<% for (const _file of files) { %>
+
+					<div class="contenu__panel">
+
+						<% if (mime.getType(_file).indexOf("image") !== -1) { %>
+
+							<img src="/api/file/<%= _file %>" style="width: 100px;">
+						
+						<% } %>
+
+						<span class="contenu__subheader"><%= _file %></span>
+
+						<span><%= mime.getType(_file) %></span>
+
+						<form action="/admin/data/rename_file" method="POST">
+						
+							<br>
+							<input type="hidden" name="file" value="<%= _file %>">
+							<input type="text" name="new_name" placeholder="New Name">
+							<input type="submit" value="Rename" class="btn">
+
+						</form>
+
+						<form action="/admin/data/delete_file" method="POST">
+						
+							<input type="hidden" name="file" value="<%= _file %>">
+							<br> <input type="submit" value="Delete" class="btn">
+
+						</form>
+
+					</div>
+
+				<% } %>
+
+			</div>
+
 		</div>
 		
 	</div>

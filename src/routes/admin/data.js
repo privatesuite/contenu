@@ -35,7 +35,7 @@ router.post("/import", async (req, res) => {
 
 	if (data.file && data.file.filename) {
 
-		await wp_migrate(data.file.data);
+		await wp_migrate(data.file.data.toString());
 
 		res.writeHead(302, {
 		
@@ -345,6 +345,85 @@ router.post("/edit_template/:id", async (req, res) => {
 	});
 
 	res.end();
+
+});
+
+router.post("/upload_file", async (req, res) => {
+
+	const data = await body(req);
+
+	if (data.file && data.file.filename) {
+
+		data.file.filename = data.file.filename.replace(/\.\./g, "");
+
+		// console.log(path.join(__dirname, "..", "..", "..", "files", data.file.filename));
+		fs.writeFileSync(path.join(__dirname, "..", "..", "..", "files", data.file.filename), data.file.data);
+
+		res.writeHead(302, {
+		
+			"Location": "/admin/data?to=files"
+	
+		});
+	
+		res.end();
+
+	} else {
+
+		res.end();
+
+	}
+
+});
+
+router.post("/delete_file", async (req, res) => {
+
+	const data = await body(req);
+
+	if (data.file) {
+
+		data.file = data.file.replace(/\.\./g, "");
+
+		fs.unlinkSync(path.join(__dirname, "..", "..", "..", "files", data.file));
+
+		res.writeHead(302, {
+		
+			"Location": "/admin/data?to=files"
+	
+		});
+	
+		res.end();
+
+	} else {
+
+		res.end();
+
+	}
+
+});
+
+router.post("/rename_file", async (req, res) => {
+
+	const data = await body(req);
+
+	if (data.file) {
+
+		data.file = data.file.replace(/\.\./g, "");
+
+		fs.renameSync(path.join(__dirname, "..", "..", "..", "files", data.file), path.join(__dirname, "..", "..", "..", "files", data.new_name));
+
+		res.writeHead(302, {
+		
+			"Location": "/admin/data?to=files"
+	
+		});
+	
+		res.end();
+
+	} else {
+
+		res.end();
+
+	}
 
 });
 

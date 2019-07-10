@@ -2,6 +2,7 @@ const fs = require("fs");
 const ejs = require("ejs");
 const session = require("../utils/session");
 const Database = require("../db");
+const mime = require("mime");
 const path = require("path");
 
 const db = new Database();
@@ -17,6 +18,8 @@ module.exports = (request, name, data) => {
 			users: await db.users(),
 			elements: await db.elements(),
 			templates: await db.templates(),
+			files: fs.readdirSync(path.join(__dirname, "..", "..", "files")),
+			mime,
 
 			...data
 

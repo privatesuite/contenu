@@ -1,69 +1,94 @@
 const qs = require("querystring");
+const multiparty = require("multiparty");
+const WritableStreamBuffer = require("stream-buffers").WritableStreamBuffer;
 
-function parseMultipart (request, data) {
+function trim (string) {
 
-	let out = {};
-	const lines = data.trim().split("\n").map(d => d.trim()).filter(d => !!d);
-	const boundary = request.headers["content-type"].split("boundary=")[1].trim().replace(";", "");
+	return string.trim().replace(/\0/g, "");
+	
+}
 
-	let hold = {};
+function trimStart (buffer) {
 
-	for (const line of lines) {
-		
-		if (line === `--${boundary}` || line === `--${boundary}--`) {
+	var pos = 0;
+	
+	for (var i = 0; i <= buffer.length; i++) {
 
-			if (hold.name) {
-				hold.data = hold.data.trim();
-				out[hold.name] = hold;
-			}
-
-			hold = {data: ""};
-
-		} if (line === `--${boundary}--`) return out;
-		else {
-
-			if (line.startsWith("Content-Disposition: form-data;")) {
-
-				let disposition = {};
-				const _disposition = line.replace("Content-Disposition: form-data;", "").trim();
-
-				_disposition = _disposition.split("; ");
-
-				_disposition.map(d => disposition[d.split("=")[0]] = d.split("=")[1].substring(1, d.split("=")[1].length - 1));
-
-				hold.name = disposition.name;
-				if (disposition.filename) hold.filename = disposition.filename;
-
-			} else if (line.startsWith("Content-Type")) {
-
-				hold.type = line.replace("Content-Type:", "").trim();
-
-			} else if (!(line === `--${boundary}` || line === `--${boundary}--`)) {
-
-				hold.data += line + "\n";
-
-			}
-
+		if (buffer[i] !== 0x00) {
+			pos = i
+			break
 		}
 
 	}
 
-	return out;
-	
+	return buffer.slice(pos);
+
+}
+
+function parseMultipart (request) {
+
+	return new Promise((resolve, reject) => {
+
+		var form = new multiparty.Form({
+
+			
+
+		});
+
+		var out = {};
+
+		var writeStream = new WritableStreamBuffer();
+
+		form.parse(request);
+
+		form.on("part", part => {
+
+			part.on("data", chunk => {
+			
+				// console.log(chunk)
+				writeStream.write(chunk);
+			
+			});
+			
+			part.on("end", chunk => {
+		
+				writeStream.end(chunk);
+				out[part.name] = {
+
+					name: part.name,
+					filename: part.filename,
+					data: writeStream.getContents()
+
+				}
+
+				writeStream = new WritableStreamBuffer()
+
+			});
+
+			part.on("error", err => {throw err;})
+
+		});
+
+		form.on("error", err => {throw err;})
+		form.on("close", () => resolve(out));
+
+	});
+
 }
 
 module.exports = async r => {
 
+	if (r.headers["content-type"].startsWith("multipart/form-data")) return await parseMultipart(r);
+
 	const b = await (new Promise(_ => {
 
-		let _b = "";
+		let _b = Buffer.from([]);
 		
-		r.on("data", __ => _b += __);
+		r.on("data", __ => _b = Buffer.concat([_b, __]));
 		r.on("end", __ => _(_b));
 
 	}));
 
-	if (r.headers["content-type"] === "application/x-www-form-urlencoded") return qs.parse(b);
-	else if (r.headers["content-type"].startsWith("multipart/form-data")) return parseMultipart(r, b);
+	if (r.headers["content-type"] === "application/x-www-form-urlencoded") return qs.parse(b.toString());
 
 }
