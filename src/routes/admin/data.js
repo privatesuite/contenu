@@ -5,7 +5,7 @@ const Router = require("router");
 const sha512 = require("js-sha512");
 const Database = require("../../db");
 
-var db = new Database();
+let db = new Database();
 const User = require("../../db/user");
 const Element = require("../../db/element");
 const Template = require("../../db/template");
@@ -33,9 +33,9 @@ router.post("/import", async (req, res) => {
 
 	const data = await body(req);
 
-	if (data.file && data.file.filename) {
+	if (data.file && data.file[0] && data.file[0].filename && data.map_posts && data.map_pages) {
 
-		await wp_migrate(data.file.data.toString());
+		await wp_migrate(data.file[0].data.toString(), data.map_posts, data.map_pages);
 
 		res.writeHead(302, {
 		
@@ -46,6 +46,12 @@ router.post("/import", async (req, res) => {
 		res.end();
 
 	} else {
+
+		res.writeHead(302, {
+		
+			"Location": "/admin/data"
+	
+		});
 
 		res.end();
 
@@ -352,6 +358,8 @@ router.post("/upload_file", async (req, res) => {
 
 	const data = await body(req);
 
+	data.file = data.file[0];
+
 	if (data.file && data.file.filename) {
 
 		data.file.filename = data.file.filename.replace(/\.\./g, "");
@@ -368,6 +376,12 @@ router.post("/upload_file", async (req, res) => {
 		res.end();
 
 	} else {
+
+		res.writeHead(302, {
+		
+			"Location": "/admin/data"
+	
+		});
 
 		res.end();
 
@@ -395,6 +409,12 @@ router.post("/delete_file", async (req, res) => {
 
 	} else {
 
+		res.writeHead(302, {
+		
+			"Location": "/admin/data"
+	
+		});
+
 		res.end();
 
 	}
@@ -420,6 +440,12 @@ router.post("/rename_file", async (req, res) => {
 		res.end();
 
 	} else {
+
+		res.writeHead(302, {
+		
+			"Location": "/admin/data"
+	
+		});
 
 		res.end();
 

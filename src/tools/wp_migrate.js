@@ -6,8 +6,10 @@ function parseXML (xml) {
 
 }
 
-module.exports = async xml => {
-	
+module.exports = async (xml, map_posts, map_pages) => {
+
+	console.log(map_posts, map_pages);
+
 	xml = await parseXML(xml);
 
 	if (!xml || !xml.rss || !Array.isArray(xml.rss.channel)) return;
@@ -15,11 +17,13 @@ module.exports = async xml => {
 
 	for (const item of xml.item) {
 
+		// console.log(item["wp:post_type"])
+
 		if (item["wp:postmeta"] && item["content:encoded"] && !!item["content:encoded"][0] && ["post", "page"].indexOf(item["wp:post_type"][0]) !== -1) {
 
 			let type = item["wp:post_type"][0];
 
-			console.log(type);
+			console.log(item);
 
 		}
 

@@ -32,7 +32,11 @@
 					<div class="select">
 
 						<input name="map_posts">
-						<div value="posts" selected>Posts</div>
+						<% for (const _template of templates) { %>
+					
+							<div value="<%= _template.id %>"><%= _template.name %></div>
+	
+						<% } %>
 
 					</div>
 
@@ -40,7 +44,11 @@
 					<div class="select">
 
 						<input name="map_pages">
-						<div value="posts" selected>Posts</div>
+						<% for (const _template of templates) { %>
+					
+							<div value="<%= _template.id %>"><%= _template.name %></div>
+	
+						<% } %>
 
 					</div>
 
@@ -195,6 +203,12 @@
 
 						<a class="contenu__panel" href="/admin/data/edit_element/<%= _element.id %>">
 
+							<% if (_element.fields.title) { %>
+						
+								<span class="contenu__subheader"><%= _element.fields.title %></span>
+						
+							<% } %>
+							
 							<code>ID: <%= _element.id %></code> <br>
 							<strong>Template</strong> <%= _element.template ? templates.find(_ => _.id === _element.template).name : "None" %> <br>
 

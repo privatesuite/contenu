@@ -10,13 +10,15 @@ function trim (string) {
 
 function trimStart (buffer) {
 
-	var pos = 0;
+	let pos = 0;
 	
-	for (var i = 0; i <= buffer.length; i++) {
+	for (let i = 0; i <= buffer.length; i++) {
 
 		if (buffer[i] !== 0x00) {
-			pos = i
-			break
+		
+			pos = i;
+			break;
+		
 		}
 
 	}
@@ -29,19 +31,25 @@ function parseMultipart (request) {
 
 	return new Promise((resolve, reject) => {
 
-		var form = new multiparty.Form({
+		let form = new multiparty.Form({
 
 			
 
 		});
 
-		var out = {};
-
-		var writeStream = new WritableStreamBuffer();
+		let out = {};
 
 		form.parse(request);
 
+		form.on("field", (name, value) => {
+
+			out[name] = value;
+
+		});
+
 		form.on("part", part => {
+
+			let writeStream = new WritableStreamBuffer();
 
 			part.on("data", chunk => {
 			
@@ -53,15 +61,20 @@ function parseMultipart (request) {
 			part.on("end", chunk => {
 		
 				writeStream.end(chunk);
-				out[part.name] = {
+
+				var contents = writeStream.getContents();
+
+				if (!contents) return;
+
+				if (!out[part.name]) out[part.name] = [];
+
+				out[part.name].push({
 
 					name: part.name,
 					filename: part.filename,
-					data: writeStream.getContents()
+					data: contents
 
-				}
-
-				writeStream = new WritableStreamBuffer()
+				});
 
 			});
 

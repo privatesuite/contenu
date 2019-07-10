@@ -141,7 +141,7 @@ function main () {
 
 		if (target.parentElement.classList.contains("select")) {
 
-			target.parentElement.querySelector("*[selected]").removeAttribute("selected");
+			if (target.parentElement.querySelector("*[selected]")) target.parentElement.querySelector("*[selected]").removeAttribute("selected");
 			target.setAttribute("selected", "");
 			target.parentElement.querySelector("input").setAttribute("value", target.getAttribute("value"));
 

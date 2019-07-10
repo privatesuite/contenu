@@ -12,6 +12,16 @@ const session = require("../../utils/session");
 var db = new Database();
 var router = new Router();
 
+router.use((req, res, next) => {
+
+	res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "*");
+    res.setHeader("Access-Control-Allow-Headers", "*");
+
+	next();
+
+});
+
 router.get("/", (req, res) => {
 
 	res.writeHead(200, {
