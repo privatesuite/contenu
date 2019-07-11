@@ -21,7 +21,9 @@
 
 				<script>
 				
-					var fields = <%- JSON.stringify(element.fields) %>;
+					var element = "<%- element.id %>";
+					var fields = {};
+					// var fields = <%- escape(JSON.stringify(element.fields)) %>;
 					var templates = <%- JSON.stringify(templates) %>;
 
 				</script>
@@ -59,11 +61,7 @@
 
 				<div id="fields" style="text-indent: 25px;">
 
-					<% for (const field of Object.keys(element.fields)) { %>
 					
-						<div><input type="text" value="<%- field %>"> <!-- <input type="text" value="<%- element.fields[field] %>"> --> <textarea><%- element.fields[field] %></textarea> <span class="btn delete_field" style="text-indent: 0;">Delete</span></div>
-
-					<% } %>
 
 				</div>
 

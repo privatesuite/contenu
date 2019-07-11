@@ -82,6 +82,16 @@ router.get("/users", async (req, res) => {
 
 router.get("/elements", async (req, res) => {
 
+	var isAdmin = false;
+
+	if (session.has(req)) {
+
+		const user = (await db.users()).find(_ => _.id === session.has(req).user_id);
+		
+		if (user && (user.perm_type === "author" || user.perm_type === "admin")) isAdmin = true;
+
+	}
+
 	res.writeHead(200, {
 		
 		"Content-Type": "application/json"
@@ -89,7 +99,7 @@ router.get("/elements", async (req, res) => {
 	});
 
 	res.end(JSON.stringify(
-		(await db.elements()).filter(_ => _.fields.api_access).map(_ => {_.db = undefined; return _;})
+		(await db.elements()).filter(_ => _.fields.api_access || isAdmin).map(_ => {_.db = undefined; return _;})
 	));
 
 });

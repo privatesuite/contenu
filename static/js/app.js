@@ -120,12 +120,21 @@ function updateTemplate () {
 
 }
 
-function main () {
+async function main () {
 
 	if (qs(location.search).to) {
 		
 		location.hash = qs(location.search).to;
 		setTimeout(() => {history.replaceState("", "", location.pathname);}, 10);
+
+	}
+
+	if (typeof element !== "undefined") {
+
+		var res = await fetch("/api/elements");
+		fields = (await res.json()).find(_ => _.id === element).fields;
+
+		redrawFields();
 
 	}
 

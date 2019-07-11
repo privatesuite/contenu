@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<% include head %>
+
+</head>
+<body>
+	
+	<% include menu %>
+
+	<div class="contenu__dashboard">
+
+		<span class="contenu__title">Elements</span>
+
+		<p>Elements are API friendly data-fillable components. An element can do a lot: for example, you can create an element that stores a blog post's data for use in a blog webapp, or an element that stores comments for dynamic user interaction.</p>
+
+		<a href="/admin/data/edit_element/new" class="btn">Create New Element</a>
+				
+		<div id="elements">
+
+			<% for (const _element of elements) { %>
+
+				<a class="contenu__panel" href="/admin/data/edit_element/<%= _element.id %>">
+
+					<% if (_element.fields.title) { %>
+						
+						<span class="contenu__subheader"><%= _element.fields.title %></span>
+						
+					<% } %>
+							
+					<code>ID: <%= _element.id %></code> <br>
+					<strong>Template</strong> <%= _element.template ? templates.find(_ => _.id === _element.template).name : "None" %> <br>
+
+				</a>
+
+			<% } %>
+
+		</div>
+
+	</div>
+
+</body>
+</html>

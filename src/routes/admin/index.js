@@ -132,6 +132,18 @@ router.post("/source/clone", async (req, res) => {
 
 });
 
+router.get("/elements", async (req, res) => {
+
+	res.writeHead(200, {
+		
+		"Content-Type": "text/html"
+
+	});
+
+	res.end(await view(req, "admin/elements", {}));
+
+});
+
 router.use("/data", require("./data"));
 
 module.exports = router;

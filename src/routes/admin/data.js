@@ -220,7 +220,7 @@ router.post("/edit_element/:id", async (req, res) => {
 
 		res.writeHead(302, {
 		
-			"Location": "/admin/data"
+			"Location": "/admin/elements"
 
 		});
 
@@ -249,7 +249,7 @@ router.post("/edit_element/:id", async (req, res) => {
 
 	res.writeHead(302, {
 		
-		"Location": "/admin/data"
+		"Location": "/admin/elements"
 
 	});
 
