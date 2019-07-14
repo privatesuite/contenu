@@ -1,6 +1,6 @@
 const fs = require("fs");
-const http = require("http2");
-// const https = require("https");
+const http = require("http");
+const http2 = require("http2");
 const mime = require("mime");
 const path = require("path");
 const Router = require("router");
@@ -39,8 +39,14 @@ router.use("/api", require("./routes/api"));
 router.use("/admin", require("./routes/admin"));
 
 let server = http.createServer((req, res) => {
+	
+	res.writeHead(302, {
+		
+		"Location": `https://${req.headers["host"]}${req.url}`
 
-	router(req, res, finalhandler(req, res));
+	});
+
+	res.end();
 
 });
 
@@ -48,7 +54,7 @@ let serverSecure;
 
 if (config.server.secure) {
 
-	serverSecure = http.createSecureServer({
+	serverSecure = http2.createSecureServer({
 
 		key: fs.readFileSync(path.join(__dirname, "..", config.server.keyPath || "server.key")),
 		cert: fs.readFileSync(path.join(__dirname, "..", config.server.certPath || "server.cert"))

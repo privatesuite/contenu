@@ -4,21 +4,27 @@ const cookies = require("./cookies");
 
 module.exports = {
 
+	parseSession (token) {
+
+		try {
+			
+			return jwt.verify(token, conf.admin.secret);
+
+		} catch {
+
+			return false;
+
+		}
+
+	},
+
 	has (request) {
 
 		const c = cookies.parse(request);
 
 		if (c.token) {
 		
-			try {
-			
-				return jwt.verify(c.token, conf.admin.secret);
-
-			} catch {
-
-				return false;
-
-			}
+			return this.parseSession(c.token);
 
 		}
 		else return false;

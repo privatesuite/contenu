@@ -131,8 +131,8 @@ async function main () {
 
 	if (typeof element !== "undefined") {
 
-		var res = await fetch("/api/elements");
-		fields = (await res.json()).find(_ => _.id === element).fields;
+		var res = await fetch(`/api/elements?token=${qs(document.cookie).token}`);
+		fields = ((await res.json()).find(_ => _.id === element) || {fields: {}}).fields;
 
 		redrawFields();
 

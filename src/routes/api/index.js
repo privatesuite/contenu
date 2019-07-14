@@ -1,4 +1,6 @@
 const fs = require("fs");
+const qs = require("querystring");
+const url = require("url");
 const path = require("path");
 const Router = require("router");
 const Database = require("../../db");
@@ -84,9 +86,11 @@ router.get("/elements", async (req, res) => {
 
 	var isAdmin = false;
 
-	if (session.has(req)) {
+	req.params = qs.parse((url.parse(req.url).search || "").replace("?", ""));
 
-		const user = (await db.users()).find(_ => _.id === session.has(req).user_id);
+	if (req.params && req.params.token) {
+
+		const user = (await db.users()).find(_ => _.id === session.parseSession(req.params.token).user_id);
 		
 		if (user && (user.perm_type === "author" || user.perm_type === "admin")) isAdmin = true;
 
