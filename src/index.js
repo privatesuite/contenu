@@ -40,13 +40,21 @@ router.use("/admin", require("./routes/admin"));
 
 let server = http.createServer((req, res) => {
 	
-	res.writeHead(302, {
-		
-		"Location": `https://${req.headers["host"]}${req.url}`
+	if (config.server.secure) {
 
-	});
+		res.writeHead(302, {
+			
+			"Location": `https://${req.headers["host"]}${req.url}`
 
-	res.end();
+		});
+
+		res.end();
+
+	} else {
+
+		router(req, res, finalhandler(req, res));
+
+	}
 
 });
 
