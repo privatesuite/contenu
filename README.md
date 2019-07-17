@@ -69,7 +69,7 @@ Templates can be found in the `Data` tab while elements can be found in the `Ele
 
 Users have different available permission levels. The following table describes each permission level and the access that they grant to a user.
 
-Permission | What it can do
+Permission | Access
 ---------- | --------------
 Admin | Can do anything in the admin panel
 Author | Currently has the same permissions as an admin
