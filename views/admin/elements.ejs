@@ -34,7 +34,7 @@
 
 				<% for (const _element of _elements) { %>
 
-					<a class="contenu__panel" href="/admin/data/edit_element/<%= _element.id %>">
+					<a id="<%- _element.id %>" class="contenu__panel" href="/admin/data/edit_element/<%= _element.id %>">
 
 						<% if (_element.fields.title) { %>
 							

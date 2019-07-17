@@ -124,9 +124,21 @@ function updateTemplate () {
 async function main () {
 
 	if (qs(location.search).to) {
+
+		if ("scrollRestoration" in window.history) {
+			
+			window.history.scrollRestoration = "manual";
 		
-		location.hash = qs(location.search).to;
-		setTimeout(() => {history.replaceState("", "", location.pathname);}, 10);
+		}
+
+		const to = qs(location.search).to;
+		history.replaceState("", "", location.pathname);
+
+		less.pageLoadFinished.then(() => {
+			
+			window.scrollTo(0, document.getElementById(to).offsetTop);
+
+		});
 
 	}
 
