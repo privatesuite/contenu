@@ -87,7 +87,7 @@ router.get("*", (req, res, next) => {
 
 		res.writeHead(200, {
 
-			"Content-Type": mime.getType(file),
+			"Content-Type": mime.getType(file) || "application/octet-stream",
 			"Content-Length": stat.size
 
 		});

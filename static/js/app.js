@@ -106,6 +106,7 @@ function updateTemplate () {
 			const input2 = document.createElement("textarea");
 
 			input2.value = value;
+			input2.readOnly = true;
 
 			div.appendChild(input);
 			div.append(" ");
