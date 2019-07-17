@@ -19,12 +19,15 @@ Setting up Contenu is simple! You'll need a recent version of `nodejs`, `git`, a
 3. Create a `prod.conf` configuration file
 4. Place that file in the `config` folder
 5. Run `node src/index.js prod`
+6. Store the password logged in the first run somewhere safe
 
 **Note** `dev.conf` is meant for developers, please don't use it in production.
 
 ## Configuration Files
 
 Configuration files are written in the `ini` format.
+
+**Note** The following code is part of `dev.conf`, please change the `secret`, `secure`, `keyPath`, and `certPath` in order to fit your needs.
 
 ```ini
 
@@ -42,6 +45,39 @@ enabled = true # True if you want the admin panel to be enabled
 secret = myJsonWebTokenPassword # The JWT key, change this to a secure password
 
 ```
+
+## The Admin Panel
+
+The admin panel can be found at `/admin` on any *Contenu* instance. To log in for the first time, go to the `/admin` login page and enter the following credentials:
+
+* **Username** admin
+* **Password** *Password logged on first run*
+
+Deleting the `admin` account is not possible as it will automatically be recreated by the CMS - if non-existent - every time the program starts. I recommend opening the `Data` tab and changing the admin password to something more memorable or creating a new user altogether.
+
+### Templates and Elements
+
+*Contenu*'s two most important components are **Templates** and **Elements**. Templates are molds that define child elements' fields. Elements are database entries that contain fields.
+
+Templates can be found in the `Data` tab while elements can be found in the `Elements` tab.
+
+### Users
+
+**Users** are elements with non-customizable fields. Users can be added, deleted, and modified in the `Data` tab.
+
+#### Permissions
+
+Users have different available permission levels. The following table describes each permission level and the access that they grant to a user.
+
+Permission | What it can do
+---------- | --------------
+Admin | Can do anything in the admin panel
+Author | Currently has the same permissions as an admin
+Viewer | Cannot access the admin panel
+
+### Source Control
+
+The `Source Control` tab will allow you to clone from a Git repository. Just type in the `URL` of the repository and the `branch` or `tag` that you want to clone from. Then, press the `Clone` button. The repository will be cloned into the `www` folder, from which HTML is served.
 
 ## License
 
