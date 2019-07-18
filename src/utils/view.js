@@ -7,11 +7,11 @@ const path = require("path");
 
 const db = new Database();
 
-module.exports = (request, name, data) => {
+module.exports = (request, name, data, folder = path.join(__dirname, `../..`, `views`)) => {
 
 	return new Promise(async (resolve, reject) => {
 
-		ejs.renderFile(path.join(__dirname, `../..`, `views`, `${name}.ejs`), {
+		ejs.renderFile(path.join(folder, `${name}.ejs`), {
 
 			current_user: (await db.users()).find(_ => _.id === session.has(request).user_id),
 

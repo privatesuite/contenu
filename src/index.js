@@ -12,10 +12,19 @@ const User = require("./db/user");
 const config = require("./utils/conf")(process.argv[2] || "dev");
 const db = new Database();
 
+require("./plugins").load();
+
 if (!fs.existsSync(path.join(__dirname, "..", "files"))) {
 
 	console.log("[INFO] Created \"files\" folder");
 	fs.mkdirSync(path.join(__dirname, "..", "files"));
+
+}
+
+if (!fs.existsSync(path.join(__dirname, "..", "plugins"))) {
+
+	console.log("[INFO] Created \"plugins\" folder");
+	fs.mkdirSync(path.join(__dirname, "..", "plugins"));
 
 }
 

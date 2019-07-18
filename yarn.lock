@@ -362,6 +362,10 @@ utils-merge@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
 
+vm2@^3.8.2:
+  version "3.8.2"
+  resolved "https://registry.yarnpkg.com/vm2/-/vm2-3.8.2.tgz#7744c40f669c079db4fda44b8edae64afd26cfb0"
+
 wrappy@1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
