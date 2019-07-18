@@ -145,5 +145,6 @@ router.get("/elements", async (req, res) => {
 });
 
 router.use("/data", require("./data"));
+router.use("/plugins", require("./plugins"));
 
 module.exports = router;

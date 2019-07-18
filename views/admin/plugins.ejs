@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<% include head %>
+
+</head>
+<body>
+	
+	<% include menu %>
+
+	<div class="contenu__dashboard">
+
+		<span class="contenu__title">Plugin</span>
+
+		<p>Plugins allow users to add extra features to the CMS.</p>
+
+		<% for (const plugin of plugins) { %>
+		
+			<div class="contenu__panel">
+
+				<span class="contenu__header"><%- plugin.package().name %></span>
+
+				<%- plugin.html_description() %>
+
+			</div>
+
+		<% } %>
+
+	</div>
+
+</body>
+</html>

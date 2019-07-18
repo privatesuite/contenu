@@ -12,8 +12,6 @@ const User = require("./db/user");
 const config = require("./utils/conf")(process.argv[2] || "dev");
 const db = new Database();
 
-require("./plugins").load();
-
 if (!fs.existsSync(path.join(__dirname, "..", "files"))) {
 
 	console.log("[INFO] Created \"files\" folder");
@@ -118,4 +116,4 @@ router.get("*", (req, res, next) => {
 
 });
 
-server.listen(config.server.port);
+server.listen(config.server.port, () => {require("./plugins").load();});
