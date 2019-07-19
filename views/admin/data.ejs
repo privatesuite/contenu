@@ -9,15 +9,15 @@
 	
 	<% include menu %>
 
-	<div class="contenu__dashboard">
+	<div class="app_body">
 
-		<span class="contenu__title">Data Management</span>
+		<h1>Data Management</h1>
 
-		<div class="contenu__split">
+		<div class="split">
 
-			<div class="contenu__panel">
+			<div class="panel">
 
-				<span class="contenu__header">Import from WordPress</span>
+				<h2>Import from WordPress</h2>
 
 				<p>Import WordPress XML files. Select the import mappings - or where the WordPress posts and pages will be recorded - below and upload the WordPress XML file by pressing on <code>Choose File</code>.</p>
 
@@ -60,9 +60,9 @@
 
 			</div>
 
-			<div class="contenu__panel">
+			<div class="panel">
 
-				<span class="contenu__header">Export to JSON</span>
+				<h2>Export to JSON</h2>
 
 				<span>Export to JSON for backup or migration purposes.</span>
 
@@ -70,15 +70,15 @@
 
 		</div>
 
-		<div class="contenu__split">
+		<div class="split">
 			
-			<div class="contenu__panel">
+			<div class="panel">
 
-				<span class="contenu__header">API</span>
+				<h2>API</h2>
 
 				<p>The API is an essential element of the Contenu CMS. It can be accessed at <code>/api</code>. API access for all elements and templates is disabled by default - to allow it, simply create an <code>api_access</code> field in that element or template and set it to <code>true</code>.</p>
 
-				<span class="contenu__subheader">Routes</span>
+				<h3>Routes</h3>
 
 				<!-- <ul>
 
@@ -134,19 +134,21 @@
 
 			</div>
 
-			<div class="contenu__panel">
+			<div class="panel">
 
-				<span class="contenu__header">Users</span>
+				<h2>Users</h2>
 
 				<a href="/admin/data/edit_user/new" class="btn">Create New User</a>
+
+				<br><br>
 
 				<div>
 
 					<% for (const _user of users) { %>
 
-						<a class="contenu__panel" href="/admin/data/edit_user/<%= _user.id %>">
+						<a class="panel" href="/admin/data/edit_user/<%= _user.id %>">
 
-							<span class="contenu__subheader"><%= _user.username %></span>
+							<h3><%= _user.username %></h3>
 						
 							<code>ID: <%= _user.id %></code> <br>
 							<strong>Type</strong> <%= _user.perm_type %> <br>
@@ -164,21 +166,23 @@
 
 		<!-- <div class="contenu__split"> -->
 
-			<div class="contenu__panel">
+			<div class="panel">
 
-				<span class="contenu__header">Templates</span>
+				<h2>Templates</h2>
 
 				<p>Templates can help standardize and structure elements.</p>
 
 				<a href="/admin/data/edit_template/new" class="btn">Create New Template</a>
 
+				<br><br>
+
 				<div>
 
 					<% for (const _template of templates) { %>
 
-						<a class="contenu__panel" href="/admin/data/edit_template/<%= _template.id %>">
+						<a class="panel" href="/admin/data/edit_template/<%= _template.id %>">
 
-							<span class="contenu__subheader"><%= _template.name %></span>
+							<h3><%= _template.name %></h3>
 							<code>ID: <%= _template.id %></code>
 			
 						</a>
@@ -191,9 +195,9 @@
 			
 		<!-- </div> -->
 
-		<div class="contenu__panel">
+		<div class="panel">
 
-			<span class="contenu__header">Files</span>
+			<h2>Files</h2>
 
 			<form action="/admin/data/upload_file" method="POST" enctype="multipart/form-data">
 
@@ -205,7 +209,7 @@
 
 				<% for (const _file of files) { %>
 
-					<div class="contenu__panel">
+					<div class="panel">
 
 						<% if (mime.getType(_file).indexOf("image") !== -1) { %>
 
@@ -213,7 +217,7 @@
 						
 						<% } %>
 
-						<span class="contenu__subheader"><%= _file %></span>
+						<h3><%= _file %></h3>
 
 						<span><%= mime.getType(_file) %></span>
 

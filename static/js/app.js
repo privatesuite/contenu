@@ -1,9 +1,11 @@
+const itemSelectedEvent = new Event("itemSelected");
+
 function qs (querystring) {
 
 	querystring = querystring.substring(querystring.indexOf('?')+1).split('&');
-	var params = {}, pair, d = decodeURIComponent;
+	let params = {}, pair, d = decodeURIComponent;
 
-	for (var i = querystring.length - 1; i >= 0; i--) {
+	for (let i = querystring.length - 1; i >= 0; i--) {
 		
 		pair = querystring[i].split('=');
 		params[d(pair[0])] = d(pair[1] || '');
@@ -123,6 +125,8 @@ function updateTemplate () {
 
 async function main () {
 
+	feather.replace();
+
 	if (qs(location.search).to) {
 
 		if ("scrollRestoration" in window.history) {
@@ -166,6 +170,16 @@ async function main () {
 			if (target.parentElement.querySelector("*[selected]")) target.parentElement.querySelector("*[selected]").removeAttribute("selected");
 			target.setAttribute("selected", "");
 			target.parentElement.querySelector("input").setAttribute("value", target.getAttribute("value"));
+
+			if (target.parentElement.id === "theme_select") {
+				
+				document.getElementById("theme").href = `/admin/static/themes/${target.getAttribute("value")}.less`;
+				// less.sheets = [];
+				document.querySelector("style").remove();
+				less.refresh();
+				document.cookie=`theme=${target.getAttribute("value")}; path=/admin;`;
+
+			}
 
 			if (typeof templates !== "undefined") updateTemplate();
 

@@ -9,17 +9,17 @@
 	
 	<% include menu %>
 
-	<div class="contenu__dashboard">
+	<div class="app_body">
 
-		<span class="contenu__title">Plugin</span>
+		<h1>Plugins</h1>
 
 		<p>Plugins allow users to add extra features to the CMS.</p>
 
 		<% for (const plugin of plugins) { %>
 		
-			<div class="contenu__panel">
+			<div class="panel">
 
-				<span class="contenu__header"><%- plugin.package().name %></span>
+				<h2><%- plugin.package().name %></h2>
 
 				<%- plugin.html_description() %>
 

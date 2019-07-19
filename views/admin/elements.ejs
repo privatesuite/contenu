@@ -9,13 +9,15 @@
 	
 	<% include menu %>
 
-	<div class="contenu__dashboard">
+	<div class="app_body">
 
-		<span class="contenu__title">Elements</span>
+		<h1>Elements</h1>
 
 		<p>Elements are API friendly data-fillable components. An element can do a lot: for example, you can create an element that stores a blog post's data for use in a blog webapp, or an element that stores comments for dynamic user interaction.</p>
 
 		<a href="/admin/data/edit_element/new" class="btn">Create New Element</a>
+
+		<br><br>
 
 		<% templates = [{
 
@@ -34,11 +36,11 @@
 
 				<% for (const _element of _elements) { %>
 
-					<a id="<%- _element.id %>" class="contenu__panel" href="/admin/data/edit_element/<%= _element.id %>">
+					<a id="<%- _element.id %>" class="panel" href="/admin/data/edit_element/<%= _element.id %>">
 
 						<% if (_element.fields.title) { %>
 							
-							<span class="contenu__subheader"><%= _element.fields.title %></span>
+							<h3><%= _element.fields.title %></h3>
 							
 						<% } %>
 								

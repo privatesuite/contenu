@@ -9,14 +9,14 @@
 	
 	<% include menu %>
 
-	<div class="contenu__dashboard">
+	<div class="app_body">
 
-		<span class="contenu__title">Data Management > Edit Template</span>
+		<h1>Edit Template</h1>
 
-		<div class="contenu__panel">
+		<div class="panel">
 
 			<code>ID: <%= template.id %></code>
-			<span class="contenu__header"><%= template.name %></span>
+			<h2><%= template.name %></h2>
 
 			<form method="post">
 
@@ -33,7 +33,7 @@
 
 				<br><br>
 
-				<span class="contenu__header">Fields</span>
+				<h2>Fields</h2>
 
 				<div id="add_field" class="btn">+</div> <br><br>
 

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<% include head %>
+
+</head>
+<body>
+	
+	<% include menu %>
+
+	<% const theme = cookies.theme || "light" %>
+
+	<div class="app_body">
+
+		<h1>Settings</h1>
+
+		<div class="panel">
+
+			<h2>Theme</h2>
+
+			<div id="theme_select" class="select">
+	
+				<input>
+	
+				<div value="light" <%= theme === "light" ? "selected" : "" %>>Light</div>
+				<div value="sunset" <%= theme === "sunset" ? "selected" : "" %>>Sunset</div>
+				<div value="dark" <%= theme === "dark" ? "selected" : "" %>>Dark</div>
+	
+			</div>
+
+		</div>
+
+	</div>
+
+</body>
+</html>

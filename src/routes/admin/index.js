@@ -144,6 +144,18 @@ router.get("/elements", async (req, res) => {
 
 });
 
+router.get("/settings", async (req, res) => {
+
+	res.writeHead(200, {
+
+		"Content-Type": "text/html"
+		
+	});
+
+	res.end(await view(req, "admin/settings", {}));
+
+});
+
 router.use("/data", require("./data"));
 router.use("/plugins", require("./plugins"));
 

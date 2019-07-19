@@ -1,6 +1,7 @@
 const fs = require("fs");
 const ejs = require("ejs");
 const session = require("../utils/session");
+const cookies = require("../utils/cookies");
 const Database = require("../db");
 const mime = require("mime");
 const path = require("path");
@@ -15,6 +16,7 @@ var f = module.exports = (request, name, data = {}, folder = path.join(__dirname
 
 			request,
 			current_user: (await db.users()).find(_ => _.id === session.has(request).user_id),
+			cookies: cookies.parse(request),
 
 			users: await db.users(),
 			elements: await db.elements(),

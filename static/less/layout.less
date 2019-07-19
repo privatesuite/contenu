@@ -1,0 +1,184 @@
+* {
+
+	box-sizing: border-box;
+
+	font-family: @body_font;
+
+}
+
+*::selection {
+
+	background-color: @black;
+
+}
+
+.menu_wrapper {
+
+	position: fixed;
+
+	top: 0;
+	left: 0;
+
+	width: @menu_width;
+	height: 100%;
+
+	padding: @menu_spacing;
+
+}
+
+.menu {
+
+	border-radius: @menu_radius;
+
+	width: @menu_width;
+	height: 100%;
+
+	background-color: @menu_background;
+
+	&>.items {
+
+		height: 100%;
+		
+		overflow: auto;
+		
+		&>* {
+
+			position: relative;
+
+			display: block;
+
+			margin: auto;
+			margin-top: @menu_items_spacing;
+
+			border-radius: @menu_items_radius;
+
+			padding: @menu_items_padding;
+
+			width: @menu_width / 2;
+			height: @menu_width / 2;
+
+			color: @menu_items_foreground;
+			text-decoration: none;
+
+			background-color: @menu_items_background;
+
+			&>svg {
+
+				display: block;
+
+				opacity: 1;
+
+				margin: auto;
+
+				transition: @transition;
+
+			}
+
+			&>span {
+
+				position: absolute;
+				
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+
+				display: block;
+
+				opacity: 0;
+				pointer-events: none;
+
+				transition: @transition;
+
+			}
+
+			&:hover {
+
+				border-radius: 0;
+				width: @menu_width;
+
+				&>span {
+
+					opacity: 1;
+					pointer-events: all;
+
+				}
+
+				&>svg {
+
+					opacity: 0;
+					pointer-events: none;
+
+				}
+
+			}
+
+			cursor: pointer;
+			transition: @transition;
+
+		}
+
+	}
+
+}
+
+.app_body {
+
+	position: fixed;
+
+	top: 0;
+	left: @menu_width + @menu_spacing * 2;
+	right: 0;
+
+	padding: @app_body_spacing;
+
+	width: calc(100% - (@menu_width + @menu_spacing * 2));
+	// width: -moz-calc(100% - (@menu_width + @menu_spacing * 2));
+	// width: -webkit-calc(100% - (@menu_width + @menu_spacing * 2));
+	height: 100%;
+
+	color: @app_body_foreground;
+	background-color: @app_body_background;
+
+	overflow: hidden;
+	overflow-y: auto;
+
+}
+
+.panel {
+
+	display: block;
+
+	margin-bottom: 20px;
+
+	border: @panel_border;
+	border-radius: @panel_radius;
+
+	padding: @panel_spacing;
+
+	text-decoration: none;
+
+}
+
+.split {
+
+	display: flex;
+
+	&>*:first-child {
+
+		display: inline-block;
+
+		margin-right: 10px;
+
+		width: 50%;
+
+	}
+
+	&>*:last-child {
+
+		display: inline-block;
+
+		width: 50%;
+
+	}
+
+}

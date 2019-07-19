@@ -1,15 +1,18 @@
-<div class="contenu__menu">
+<div class="menu_wrapper">
 
-	<span class="contenu__brand">Contenu</span>	
+	<div class="menu">
 
-	<div class="contenu__menu__items">
+		<div class="items">
 
-		<a href="/admin">Dashboard</a>
-		<a href="/admin/source">Source Control</a>
-		<a href="/admin/data">Data Management</a>
-		<a href="/admin/elements">Elements</a>
-		<a href="/admin/plugins">Plugins</a>
-		<a href="#" onclick="document.cookie='token=;path=/admin'; location.reload();">Log Out</a>
+			<a href="/admin"><i data-feather="clipboard"></i> <span>Dashboard</span></a>
+			<a href="/admin/source"><i data-feather="git-merge"></i> <span>Source</span></a>
+			<a href="/admin/data"><i data-feather="database"></i> <span>Data</span></a>
+			<a href="/admin/elements"><i data-feather="box"></i> <span>Elements</span></a>
+			<a href="/admin/plugins"><i data-feather="file-plus"></i> <span>Plugins</span></a>
+			<a href="/admin/settings"><i data-feather="settings"></i> <span>Settings</span></a>
+			<a onclick="document.cookie='token=; path=/admin;'; location.reload();"><i data-feather="log-out"></i> <span>Logout</span></a>
+
+		</div>
 
 	</div>
 
