@@ -11,8 +11,29 @@ function qs (querystring) {
 		params[d(pair[0])] = d(pair[1] || '');
 	
 	}
-  
+
 	return params;
+
+}
+
+function cookies () {
+
+	return document.cookie.split(";").reduce((res, c) => {
+	
+		const [key, val] = c.trim().split("=").map(decodeURIComponent)
+		const allNumbers = str => /^\d+$/.test(str);
+		
+		try {
+		
+			return Object.assign(res, { [key]: allNumbers(val) ?  val : JSON.parse(val) })
+		
+		} catch (e) {
+		
+			return Object.assign(res, { [key]: val })
+		
+		}
+	
+	}, {});
 
 }
 
@@ -148,7 +169,7 @@ async function main () {
 
 	if (typeof element !== "undefined") {
 
-		var res = await fetch(`/api/elements?token=${qs(document.cookie).token}`);
+		var res = await fetch(`/api/elements?token=${cookies().token}`);
 		fields = ((await res.json()).find(_ => _.id === element) || {fields: {}}).fields;
 
 		redrawFields();

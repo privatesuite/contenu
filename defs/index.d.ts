@@ -33,4 +33,6 @@ declare module "contenu" {
 
 	}
 
+	const Router = (await import("router")).default;
+
 }

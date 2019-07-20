@@ -103,5 +103,6 @@ module.exports = async r => {
 	}));
 
 	if (r.headers["content-type"] === "application/x-www-form-urlencoded") return qs.parse(b.toString());
+	if (r.headers["content-type"] === "application/json") return JSON.parse(b.toString());
 
 }

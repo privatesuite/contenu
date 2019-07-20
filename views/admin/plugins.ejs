@@ -19,7 +19,14 @@
 		
 			<div class="panel">
 
-				<h2><%- plugin.package().name %></h2>
+				<h2><%= plugin.package().name %></h2>
+
+				<p>
+
+					<strong>Version</strong> <%= plugin.package().version || "Unknown" %> <br>
+					<strong>Author</strong> <%= plugin.package().author.name || "Unknown" %>
+
+				</p>
 
 				<%- plugin.html_description() %>
 
