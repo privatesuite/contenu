@@ -22,11 +22,12 @@
 		<% templates = [{
 
 			id: "",
-			name: "None"
+			name: "None",
+			fields: {}
 
 		}, ...templates] %>
 
-		<% for (const _template of templates) { %>
+		<% for (const _template of templates.filter(_ => !_.fields.hide_from_elements)) { %>
 
 			<% _elements = elements.filter(_ => _.template === _template.id) %>
 

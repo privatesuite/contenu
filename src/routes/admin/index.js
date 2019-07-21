@@ -15,6 +15,17 @@ var router = new Router();
 router.get("/static/*", async (req, res) => {
 
 	var file = path.join(__dirname, "../../..", req.url);
+
+	if (!fs.existsSync(file)) {
+
+		res.writeHead(404);
+		
+		res.end("404: Not Found");
+
+		return;
+
+	}
+
 	var stat = fs.statSync(file);
 
 	res.writeHead(200, {
