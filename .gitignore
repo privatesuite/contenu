@@ -1,14 +1,14 @@
 # Vendor Files
 
-node_modules
+/node_modules
 
 # Editor Files
 
-.idea
+/.idea
 
 # Contenu Files
 
-www
-files
-./plugins
-database
+/www
+/files
+/plugins
+/database
