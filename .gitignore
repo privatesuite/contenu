@@ -10,5 +10,5 @@ node_modules
 
 www
 files
-plugins
+./plugins
 database
