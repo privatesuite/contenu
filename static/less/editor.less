@@ -1,0 +1,186 @@
+.editor {
+
+	&>.controls {
+
+		position: fixed;
+
+		top: @app_body_spacing;
+
+		opacity: 0.2;
+
+		border: @editor_controls_border;
+		border-radius: @editor_controls_radius;
+
+		padding: @editor_controls_spacing;
+
+		width: calc(100% - (@menu_width + @menu_spacing * 2) - @app_body_spacing * 2);
+
+		color: @editor_controls_foreground;
+
+		background-color: @editor_controls_background;
+
+		&>* {
+
+			position: relative;
+
+			display: inline-block;
+
+			border-radius: 100%;
+
+			width: 40px;
+			height: 40px;
+
+			&>svg {
+
+				position: absolute;
+
+				top: 50%;
+				left: 50%;
+
+				transform: translate(-50%, -50%);
+
+			}
+
+			&>div {
+
+				position: absolute;
+
+				opacity: 0;
+
+				border-radius: @editor_controls_dropdown_radius;
+
+				padding: @editor_controls_dropdown_spacing;
+
+				color: @editor_controls_dropdown_foreground;
+				background-color: @editor_controls_dropdown_background;
+
+				&>span {
+
+					display: block;
+
+					padding: @editor_controls_dropdown_items_spacing;
+
+					&:hover {
+
+						background-color: darken(@editor_controls_dropdown_items_background, @darken);
+
+					}
+
+					cursor: pointer;
+					transition: 0.2s all;
+
+				}
+
+				transition: @transition;
+				pointer-events: none;
+
+			}
+
+			&:hover {
+
+				color: @editor_controls_hover_foreground;
+
+				background-color: @editor_controls_hover_background;
+
+				&>div {
+
+					opacity: 1;
+					pointer-events: all;
+
+				}
+
+			}
+			
+			cursor: pointer;
+			transition: @transition;
+
+		}
+
+		&:hover {
+
+			opacity: 1;
+			
+		}
+
+		transition: @transition;
+
+	}
+
+	&>.content {
+
+		&>.block {
+
+			border-radius: @editor_block_radius;
+
+			color: @editor_block_foreground;
+			font-size: 16px;
+
+			background-color: @editor_block_background;
+
+			&.text {
+
+				padding: @editor_block_spacing;
+
+				width: 100%;
+
+				font-weight: 400;
+
+				resize: none;
+				overflow: hidden;
+
+			}
+
+		}
+
+		&>.add {
+
+			margin-top: 10px;
+
+			padding: @editor_add_spacing;
+
+			border-top: @editor_add_border;
+
+			&>* {
+
+				position: relative;
+
+				display: inline-block;
+
+				border-radius: 100%;
+
+				width: 40px;
+				height: 40px;
+
+				color: @editor_add_foreground;
+
+				background-color: @editor_add_background;
+
+				&>* {
+
+					position: absolute;
+
+					top: 50%;
+					left: 50%;
+
+					transform: translate(-50%, -50%);
+
+				}
+
+				&:hover {
+
+					color: @editor_controls_hover_foreground;
+
+					background-color: @editor_add_hover_background;
+
+				}
+				
+				cursor: pointer;
+				transition: @transition;
+
+			}
+
+		}
+
+	}
+
+}

@@ -358,6 +358,20 @@ router.post("/upload_file", async (req, res) => {
 
 	const data = await body(req);
 
+	if (!data.file) {
+
+		res.writeHead(302, {
+		
+			"Location": "/admin/data"
+	
+		});
+
+		res.end();
+
+		return;
+
+	}
+
 	data.file = data.file[0];
 
 	if (data.file && data.file.filename) {
