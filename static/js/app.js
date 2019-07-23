@@ -1,3 +1,5 @@
+let editing;
+
 const itemSelectedEvent = new Event("itemSelected");
 
 function qs (querystring) {
@@ -83,15 +85,27 @@ function redrawFields () {
 		div.appendChild(input2);
 		div.append(" ");
 
-		const span = document.createElement("span");
+		const editor_button = document.createElement("span");
 
-		span.innerText = "Delete";
-		span.classList.add("btn");
-		span.classList.add("delete_field");
+		editor_button.innerText = "Open in Editor";
+		editor_button.classList.add("btn");
+		editor_button.classList.add("edit_field");
 
-		span.style.textIndent = "0";
+		editor_button.style.textIndent = "0";
+		editor_button.style.marginLeft = "20px";
 
-		div.appendChild(span);
+		div.appendChild(editor_button);
+
+		const delete_button = document.createElement("span");
+
+		delete_button.innerText = "Delete";
+		delete_button.classList.add("btn");
+		delete_button.classList.add("delete_field");
+
+		delete_button.style.textIndent = "0";
+		delete_button.style.marginLeft = "20px";
+
+		div.appendChild(delete_button);
 
 		document.getElementById("fields").appendChild(div);
 
@@ -221,19 +235,39 @@ async function main () {
 			div.appendChild(document.createElement("textarea"));
 			div.append(" ");
 
-			const span = document.createElement("span");
+			const editor_button = document.createElement("span");
 
-			span.innerText = "Delete";
-			span.classList.add("btn");
-			span.classList.add("delete_field");
+			editor_button.innerText = "Open in Editor";
+			editor_button.classList.add("btn");
+			editor_button.classList.add("edit_field");
 
-			span.style.textIndent = "0";
+			editor_button.style.textIndent = "0";
+			editor_button.style.marginLeft = "20px";
 
-			div.appendChild(span);
+			div.appendChild(editor_button);
+
+			const delete_button = document.createElement("span");
+
+			delete_button.innerText = "Delete";
+			delete_button.classList.add("btn");
+			delete_button.classList.add("delete_field");
+
+			delete_button.style.textIndent = "0";
+			delete_button.style.marginLeft = "20px";
+
+			div.appendChild(delete_button);
 
 			document.getElementById("fields").appendChild(div);
 
 			updateFields();
+
+		}
+
+		if (target.classList.contains("edit_field")) {
+
+			editing = target.parentElement.querySelector("textarea");
+			document.querySelector(".editor").setValue(target.parentElement.querySelector("textarea").value);
+			document.querySelector(".editor").classList.add("shown");
 
 		}
 
@@ -255,6 +289,16 @@ async function main () {
 		const target = event.target;
 
 		if (target.parentElement.parentElement && target.parentElement.parentElement.id === "fields") updateFields();
+
+		if (event.target.parentElement.classList.contains("editor") && editing) {
+
+			setTimeout(() => {
+
+				editing.value = event.target.parentElement.getValue();
+
+			}, 100);
+
+		}
 
 	});
 

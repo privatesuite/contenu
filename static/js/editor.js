@@ -1,19 +1,31 @@
 async function editorMain () {
 
-	document.addEventListener("input", event => {
+	const converter = new showdown.Converter();
+
+	for (const editor of document.querySelectorAll(".editor")) {
 		
-		if (!event.target) return;
+		editor.getValue = () => {
 
-		var element = event.target;
+			return editor.querySelector(".preview").innerHTML;
 
-		if (element.classList.contains("block")) {
+		}
 
-			if (element.classList.contains("text")) {
+		editor.setValue = value => {
 
-				element.style.height = `auto`;
-				element.style.height = `${element.scrollHeight}px`;
+			editor.querySelector("textarea").value = converter.makeMarkdown(value);
+			editor.querySelector(".preview").innerHTML = value;
 
-			}
+		}
+
+	}
+
+	document.addEventListener("keyup", event => {
+
+		var target = event.target;
+
+		if (target.tagName.toLowerCase() === "textarea" && target.parentElement.classList.contains("editor")) {
+
+			target.parentElement.querySelector(".preview").innerHTML = converter.makeHtml(target.value);
 
 		}
 

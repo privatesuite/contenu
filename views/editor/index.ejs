@@ -1,43 +1,10 @@
+<h2>Contenu Editor</h2>
+
 <div class="editor">
 
-	<h2>Contenu Editor</h2>
-
-	<div class="controls">
-
-		<div class="bold_control"><i data-feather="bold"></i></div>
-		<div class="italic_control"><i data-feather="italic"></i></div>
-		<div class="underline_control"><i data-feather="underline"></i></div>
-		<div class="text_size_control">
-
-			<i data-feather="maximize-2"></i>
-
-			<div>
-
-				<span>Paragraph</span>
-				<span>Header 1</span>
-				<span>Header 2</span>
-				<span>Header 3</span>
-				<span>Header 4</span>
-				<span>Header 5</span>
-				<span>Header 6</span>
-
-			</div>
-			
-		</div>
-		
-	</div>
-
-	<div class="content">
-
-		<textarea class="block text"></textarea>
-
-		<div class="add">
-
-			<div class="add_text_block"><i data-feather="plus-square"></i></div>
-			<div class="add_image_block"><i data-feather="image"></i></div>
-			
-		</div>
-		
-	</div>
-
+	<div class="close" onclick="this.parentElement.classList.remove('shown');"><i data-feather="x"></i></div>
+	
+	<textarea></textarea>
+	<div class="preview"></div>
+	
 </div>
