@@ -1,5 +1,7 @@
 async function editorMain () {
 
+	showdown.setFlavor("github");
+
 	const converter = new showdown.Converter();
 
 	for (const editor of document.querySelectorAll(".editor")) {

@@ -92,7 +92,6 @@ function redrawFields () {
 		editor_button.classList.add("edit_field");
 
 		editor_button.style.textIndent = "0";
-		editor_button.style.marginLeft = "20px";
 
 		div.appendChild(editor_button);
 
@@ -103,7 +102,6 @@ function redrawFields () {
 		delete_button.classList.add("delete_field");
 
 		delete_button.style.textIndent = "0";
-		delete_button.style.marginLeft = "20px";
 
 		div.appendChild(delete_button);
 
@@ -242,7 +240,6 @@ async function main () {
 			editor_button.classList.add("edit_field");
 
 			editor_button.style.textIndent = "0";
-			editor_button.style.marginLeft = "20px";
 
 			div.appendChild(editor_button);
 
@@ -253,7 +250,6 @@ async function main () {
 			delete_button.classList.add("delete_field");
 
 			delete_button.style.textIndent = "0";
-			delete_button.style.marginLeft = "20px";
 
 			div.appendChild(delete_button);
 
@@ -295,6 +291,7 @@ async function main () {
 			setTimeout(() => {
 
 				editing.value = event.target.parentElement.getValue();
+				updateFields();
 
 			}, 100);
 

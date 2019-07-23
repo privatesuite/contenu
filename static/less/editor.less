@@ -35,11 +35,16 @@
 
 		display: block;
 
+		border-radius: 0;
+
 		width: 50%;
 		height: 100%;
 
+		color: @editor_foreground;
 		font-weight: 400;
 		font-family: @editor_font;
+
+		background-color: @editor_background;
 
 		resize: none;
 		
@@ -56,14 +61,14 @@
 		width: 50%;
 		height: 100%;
 
-		color: @editor_foreground;
+		color: @editor_preview_foreground;
 		font-family: @editor_preview_font;
 
-		background-color: @editor_background;
+		background-color: @editor_preview_background;
 		
 		& * {
 
-			color: @editor_foreground;
+			color: @editor_preview_foreground;
 
 		}
 
