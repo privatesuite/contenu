@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A powerful CMS made for developers",
   "main": "src/index.js",
-  "author": "Auguste Rame",
+  "author": "Private Suite Media, LLC",
   "license": "MIT",
   "private": false,
   "dependencies": {
