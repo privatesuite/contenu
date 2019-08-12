@@ -107,7 +107,11 @@ class Plugin {
 		this.vm = new vm2.NodeVM({
 		
 			console: "inherit",
-			sandbox: {},
+			sandbox: {
+
+				process
+
+			},
 			require: {
 
 				external: true,
