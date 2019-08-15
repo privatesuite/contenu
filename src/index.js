@@ -66,6 +66,9 @@ let server = http.createServer((req, res) => {
 
 	} else {
 
+		req.on("error", () => {});
+		res.on("error", () => {});
+
 		router(req, res, finalhandler(req, res));
 
 	}
@@ -83,6 +86,9 @@ if (config.server.secure) {
 		cert: fs.readFileSync(path.join(__dirname, "..", config.server.certPath || "server.cert"))
 
 	}, (req, res) => {
+
+		req.on("error", () => {});
+		res.on("error", () => {});
 
 		router(req, res, finalhandler(req, res));
 
