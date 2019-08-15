@@ -78,6 +78,7 @@ if (config.server.secure) {
 
 	serverSecure = http2.createSecureServer({
 
+		ca: config.server.caPath ? fs.readFileSync(path.join(__dirname, "..", config.server.caPath)) : undefined,
 		key: fs.readFileSync(path.join(__dirname, "..", config.server.keyPath || "server.key")),
 		cert: fs.readFileSync(path.join(__dirname, "..", config.server.certPath || "server.cert"))
 
