@@ -123,4 +123,11 @@ router.get("*", (req, res, next) => {
 
 });
 
+process.on("uncaughtException", err => {
+
+	console.error(err.stack);
+	console.log("Server not terminating");
+
+});  
+
 server.listen(config.server.port, () => {require("./plugins").load();});
