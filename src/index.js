@@ -1,8 +1,9 @@
 const fs = require("fs");
 const http = require("http");
-const http2 = require("http2");
 const mime = require("mime");
 const path = require("path");
+const zlib = require("zlib");
+const http2 = require("http2");
 const Router = require("router");
 const sha512 = require("js-sha512");
 const Database = require("./db");
@@ -52,6 +53,72 @@ const router = new Router();
 router.use("/api", require("./routes/api"));
 router.use("/admin", require("./routes/admin"));
 
+/**
+ * 
+ * @param {http.IncomingMessage} req 
+ * @param {http.ServerResponse} res 
+ */
+function handler (req, res) {
+
+	// req.on("error", () => {});
+	// res.on("error", () => {});
+
+	if (config.server.compression && req.method.toLowerCase() !== "post") {
+
+		let virgin = true;
+
+		const writeHead = res.writeHead;
+
+		res.writeHead = (code, headers) => {
+
+			res.statusCode = code;
+
+			if (!headers) return;
+
+			for (const header of Object.keys(headers)) {
+
+				res.setHeader(header, headers[header]);
+
+			}
+
+		}
+
+		res.on("pipe", src => {
+
+			if (!virgin) return;
+			virgin = false;
+
+			if (req.headers["accept-encoding"] && !res.headersSent) {
+
+				if (req.headers["accept-encoding"].match(/gzip/)) {
+				
+					res.setHeader("Content-Encoding", "gzip");
+		
+					src.unpipe(res);
+					src.pipe(zlib.createGzip()).pipe(res);
+				
+				} else if (req.headers["accept-encoding"].match(/deflate/)) {
+				
+					res.setHeader("Content-Encoding", "deflate");
+					
+					src.unpipe(res);
+					src.pipe(zlib.createDeflate()).pipe(res);
+				
+				}
+		
+				writeHead.apply(res, [res.statusCode]);
+				// res.end();
+
+			}
+
+		});
+
+	}
+
+	router(req, res, finalhandler(req, res));
+
+}
+
 let server = http.createServer((req, res) => {
 	
 	if (config.server.secure) {
@@ -66,10 +133,7 @@ let server = http.createServer((req, res) => {
 
 	} else {
 
-		req.on("error", () => {});
-		res.on("error", () => {});
-
-		router(req, res, finalhandler(req, res));
+		handler(req, res);
 
 	}
 
@@ -85,20 +149,17 @@ if (config.server.secure) {
 		key: fs.readFileSync(path.join(__dirname, "..", config.server.keyPath || "server.key")),
 		cert: fs.readFileSync(path.join(__dirname, "..", config.server.certPath || "server.cert"))
 
-	}, (req, res) => {
-
-		req.on("error", () => {});
-		res.on("error", () => {});
-
-		router(req, res, finalhandler(req, res));
-
-	});
+	}, handler);
 
 	serverSecure.listen(config.server.securePort || config.server.port);
 
 }
 
 router.get("*", (req, res, next) => {
+
+	res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "*");
+    res.setHeader("Access-Control-Allow-Headers", "*");
 
 	let file = path.join(__dirname, "..", "www", req.url === "/" ? "index.html" : req.url);
 
@@ -123,11 +184,11 @@ router.get("*", (req, res, next) => {
 
 });
 
-process.on("uncaughtException", err => {
+// process.on("uncaughtException", err => {
 
-	console.error(err.stack);
-	console.log("Server not terminating");
+// 	console.log(err.stack);
+// 	console.log("Server not terminating");
 
-});  
+// });  
 
 server.listen(config.server.port, () => {require("./plugins").load();});
