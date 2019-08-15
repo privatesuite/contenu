@@ -2,11 +2,11 @@ const fs = require("fs");
 const http = require("http");
 const mime = require("mime");
 const path = require("path");
-const zlib = require("zlib");
 const http2 = require("http2");
 const Router = require("router");
 const sha512 = require("js-sha512");
 const Database = require("./db");
+const compression = require("compression");
 const finalhandler = require("finalhandler");
 
 const User = require("./db/user");
@@ -50,6 +50,7 @@ if (!fs.existsSync(path.join(__dirname, "..", "plugins"))) {
  */
 const router = new Router();
 
+if (config.server.compression) router.use(compression());
 router.use("/api", require("./routes/api"));
 router.use("/admin", require("./routes/admin"));
 
@@ -63,57 +64,57 @@ function handler (req, res) {
 	req.on("error", () => {});
 	res.on("error", () => {});
 
-	if (config.server.compression && req.method.toLowerCase() !== "post") {
+	// if (config.server.compression && req.method.toLowerCase() !== "post") {
 
-		let virgin = true;
+	// 	let virgin = true;
 
-		const writeHead = res.writeHead;
+	// 	const writeHead = res.writeHead;
 
-		res.writeHead = (code, headers) => {
+	// 	res.writeHead = (code, headers) => {
 
-			res.statusCode = code;
+	// 		res.statusCode = code;
 
-			if (!headers) return;
+	// 		if (!headers) return;
 
-			for (const header of Object.keys(headers)) {
+	// 		for (const header of Object.keys(headers)) {
 
-				res.setHeader(header, headers[header]);
+	// 			res.setHeader(header, headers[header]);
 
-			}
+	// 		}
 
-		}
+	// 	}
 
-		res.on("pipe", src => {
+	// 	res.on("pipe", src => {
 
-			if (!virgin) return;
-			virgin = false;
+	// 		if (!virgin) return;
+	// 		virgin = false;
 
-			if (req.headers["accept-encoding"] && !res.headersSent) {
+	// 		if (req.headers["accept-encoding"] && !res.headersSent) {
 
-				if (req.headers["accept-encoding"].match(/gzip/)) {
+	// 			if (req.headers["accept-encoding"].match(/gzip/)) {
 				
-					res.setHeader("Content-Encoding", "gzip");
+	// 				res.setHeader("Content-Encoding", "gzip");
 		
-					src.unpipe(res);
-					src.pipe(zlib.createGzip()).pipe(res);
+	// 				src.unpipe(res);
+	// 				src.pipe(zlib.createGzip()).pipe(res);
 				
-				} else if (req.headers["accept-encoding"].match(/deflate/)) {
+	// 			} else if (req.headers["accept-encoding"].match(/deflate/)) {
 				
-					res.setHeader("Content-Encoding", "deflate");
+	// 				res.setHeader("Content-Encoding", "deflate");
 					
-					src.unpipe(res);
-					src.pipe(zlib.createDeflate()).pipe(res);
+	// 				src.unpipe(res);
+	// 				src.pipe(zlib.createDeflate()).pipe(res);
 				
-				}
+	// 			}
 		
-				writeHead.apply(res, [res.statusCode]);
-				// res.end();
+	// 			writeHead.apply(res, [res.statusCode]);
+	// 			// res.end();
 
-			}
+	// 		}
 
-		});
+	// 	});
 
-	}
+	// }
 
 	router(req, res, finalhandler(req, res));
 
