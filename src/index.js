@@ -60,8 +60,8 @@ router.use("/admin", require("./routes/admin"));
  */
 function handler (req, res) {
 
-	// req.on("error", () => {});
-	// res.on("error", () => {});
+	req.on("error", () => {});
+	res.on("error", () => {});
 
 	if (config.server.compression && req.method.toLowerCase() !== "post") {
 
@@ -184,11 +184,11 @@ router.get("*", (req, res, next) => {
 
 });
 
-// process.on("uncaughtException", err => {
+process.on("uncaughtException", err => {
 
-// 	console.log(err.stack);
-// 	console.log("Server not terminating");
+	console.log(err.stack);
+	console.log("Server not terminating");
 
-// });  
+});
 
 server.listen(config.server.port, () => {require("./plugins").load();});
