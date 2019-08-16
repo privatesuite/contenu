@@ -7,6 +7,12 @@ var router = new Router();
 
 router.get("/", async (req, res) => {
 
+	res.writeHead(200, {
+
+		"Content-Type": "text/html"
+		
+	});
+
 	res.end(await view(req, "admin/plugins", {
 
 		plugins: plugins.getPlugins()
