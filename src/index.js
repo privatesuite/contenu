@@ -116,7 +116,13 @@ function handler (req, res) {
 
 	// }
 
-	router(req, res, finalhandler(req, res));
+	router(req, res, () => {
+
+		res.writeHead(404, {});
+
+		res.end("Error: Page not found");
+
+	});
 
 }
 
