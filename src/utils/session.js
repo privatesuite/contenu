@@ -31,15 +31,19 @@ module.exports = {
 
 	},
 
-	give (user_id, response) {
+	generateToken (user_id) {
 
-		const token = jwt.sign({
+		return jwt.sign({
 
 			user_id
 
 		}, conf.admin.secret);
 
-		cookies.set("token", token, "/admin", response);
+	},
+
+	give (user_id, response) {
+
+		cookies.set("token", this.generateToken(user_id), "/admin", response);
 
 	}
 

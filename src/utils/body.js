@@ -91,6 +91,8 @@ function parseMultipart (request) {
 
 module.exports = async r => {
 
+	if (!r.headers["content-type"]) return {};
+
 	if (r.headers["content-type"].startsWith("multipart/form-data")) return await parseMultipart(r);
 
 	const b = await (new Promise(_ => {
