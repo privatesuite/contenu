@@ -39,7 +39,11 @@ router.get("/", (req, res) => {
 			"/api/file/{path}": "GETs a file",
 			"/api/users": "GETs all existing users",
 			"/api/elements": "GETs all `api_access` elements",
-			"/api/templates": "GETs all templates"
+			"/api/templates": "GETs all templates",
+			"/api/plugins": "GETs all plugins; requires token",
+
+			"/api/clone": "POSTs a clone from source request",
+			"/api/authenticate": "POSTs authentication variables `username` and `password` in exchange for a token"
 
 		}
 
