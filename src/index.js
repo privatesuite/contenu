@@ -2,6 +2,7 @@ const fs = require("fs");
 const http = require("http");
 const path = require("path");
 const http2 = require("http2");
+const https = require("https");
 const Router = require("router");
 const sha512 = require("js-sha512");
 const Database = require("./db");
@@ -96,7 +97,7 @@ let serverSecure;
 
 if (config.server.secure) {
 
-	serverSecure = http2.createSecureServer({
+	serverSecure = (config.server.http2 ? http2.createSecureServer : https.createServer)({
 
 		ca: config.server.caPath ? fs.readFileSync(path.join(__dirname, "..", config.server.caPath)) : undefined,
 		key: fs.readFileSync(path.join(__dirname, "..", config.server.keyPath || "server.key")),
